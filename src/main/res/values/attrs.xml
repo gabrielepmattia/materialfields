@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="FieldInputText">
+        <attr name="title" format="string" />
+        <attr name="subtitle" format="string" />
+        <attr name="drawable" />
+    </declare-styleable>
+
+    <declare-styleable name="FieldsGroupHeader">
+        <attr name="title"/>
+    </declare-styleable>
+
+</resources>

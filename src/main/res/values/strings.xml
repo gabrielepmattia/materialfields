@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MaterialFields</string>
+    <string name="dialog_action_ok">Ok</string>
+    <string name="dialog_action_cancel">Cancel</string>
+</resources>
