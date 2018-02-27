@@ -16,7 +16,13 @@ import android.widget.TextView
 class FieldsGroupHeader : LinearLayout {
     var mTitleView: TextView? = null
 
-    var mTitle: String = ""
+    var title: String
+        set(s) {
+            mTitleView!!.text = s
+        }
+        get() {
+            return mTitleView!!.text.toString()
+        }
 
     constructor(context: Context) : super(context) {
         initView(context)
@@ -24,28 +30,37 @@ class FieldsGroupHeader : LinearLayout {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         initView(context)
-
-        val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.FieldsGroupHeader) as TypedArray
-        mTitle = t.getString(R.styleable.FieldsGroupHeader_title)
-        t.recycle()
+        initAttrs(attrs)
     }
 
     constructor(context: Context, attrs: AttributeSet, defAttr: Int) : super(context, attrs, defAttr) {
         initView(context)
+        initAttrs(attrs)
     }
 
     constructor(context: Context, attrs: AttributeSet, defAttr: Int, defRes: Int) : super(context, attrs, defAttr, defRes) {
         initView(context)
+        initAttrs(attrs)
     }
+
+    /*
+     * Helpers
+     */
 
     private fun initView(context: Context) {
         val i: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         i.inflate(R.layout.component_fields_group_header, this, true)
     }
 
+    private fun initAttrs(attrs: AttributeSet) {
+        mTitleView = findViewById(R.id.fields_group_header_title)
+
+        val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.FieldsGroupHeader) as TypedArray
+        title = t.getString(R.styleable.FieldsGroupHeader_title)
+        t.recycle()
+    }
+
     override fun onFinishInflate() {
         super.onFinishInflate()
-        mTitleView = findViewById(R.id.fields_group_header_title)
-        mTitleView!!.text = mTitle
     }
 }

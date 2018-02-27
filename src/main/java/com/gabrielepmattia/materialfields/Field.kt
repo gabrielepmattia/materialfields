@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -13,15 +14,39 @@ import android.widget.TextView
 /**
  * Created by gabry3795 on 26/02/2018.
  */
-open class Field : LinearLayout {
-    var mTitleView: TextView? = null
-    var mSubtitleView: TextView? = null
-    var mDrawableView: ImageView? = null
-    var mContainer: ConstraintLayout? = null
 
-    var title: String = ""
-    var subtitle: String = ""
-    var drawable: Drawable? = null
+/**
+ * Generic field control with title and subtitle. The subtitle represent the actual value of the field
+ */
+open class Field : LinearLayout {
+    protected var mTitleView: TextView? = null
+    protected var mSubtitleView: TextView? = null
+    protected var mDrawableView: ImageView? = null
+    protected var mContainer: ConstraintLayout? = null
+
+    var title: String
+        set(s) {
+            mTitleView!!.text = s
+        }
+        get() {
+            return mTitleView!!.text.toString()
+        }
+
+    var subtitle: String
+        set(s) {
+            mSubtitleView!!.text = s
+        }
+        get() {
+            return mTitleView!!.text.toString()
+        }
+
+    var drawable: Drawable?
+        set(d: Drawable?) {
+            mDrawableView!!.setImageDrawable(d)
+        }
+        get() {
+            return mDrawableView!!.drawable
+        }
 
     protected var mCurrentValue: String? = null
 
@@ -35,20 +60,17 @@ open class Field : LinearLayout {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         initView(context)
-
-        val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.FieldInputText) as TypedArray
-        title = t.getString(R.styleable.FieldInputText_title)
-        subtitle = t.getString(t.getIndex(R.styleable.FieldInputText_subtitle))
-        drawable = t.getDrawable(R.styleable.FieldInputText_drawable)
-        t.recycle()
+        initAttrs(attrs)
     }
 
     constructor(context: Context, attrs: AttributeSet, defAttr: Int) : super(context, attrs, defAttr) {
         initView(context)
+        initAttrs(attrs)
     }
 
     constructor(context: Context, attrs: AttributeSet, defAttr: Int, defRes: Int) : super(context, attrs, defAttr, defRes) {
         initView(context)
+        initAttrs(attrs)
     }
 
     /*
@@ -57,20 +79,28 @@ open class Field : LinearLayout {
 
     private fun initView(context: Context) {
         val i: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        i.inflate(R.layout.component_field_input_text, this, true)
+        i.inflate(R.layout.component_field, this, true)
     }
 
-    override fun onFinishInflate() {
-        super.onFinishInflate()
-
+    private fun initAttrs(attrs: AttributeSet) {
         mTitleView = findViewById(R.id.field_input_text_title)
         mSubtitleView = findViewById(R.id.field_input_text_subtitle)
         mDrawableView = findViewById(R.id.field_input_text_image)
         mContainer = findViewById(R.id.field_input_container)
 
-        mTitleView!!.text = title
-        mSubtitleView!!.text = subtitle
-        mDrawableView!!.setImageDrawable(drawable)
+        val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.FieldInputText) as TypedArray
+        val tempTitle = t.getString(R.styleable.FieldInputText_title)
+        if (tempTitle == null) throw RuntimeException("title cannot be empty!") else title = tempTitle
+
+        val tempSubtitle = t.getString(R.styleable.FieldInputText_subtitle)
+        if (tempSubtitle == null) mSubtitleView!!.visibility = View.GONE else subtitle = tempSubtitle
+
+        drawable = t.getDrawable(R.styleable.FieldInputText_drawable)
+        t.recycle()
+    }
+
+    override fun onFinishInflate() {
+        super.onFinishInflate()
 
     }
 

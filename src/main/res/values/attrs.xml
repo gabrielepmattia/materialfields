@@ -14,4 +14,9 @@
     <declare-styleable name="FieldShoppingList">
         <attr name="addItemPlaceHolder" format="string" required="true"/>
     </declare-styleable>
+
+    <declare-styleable name="FieldCheckBox">
+        <attr name="title"/>
+        <attr name="subtitle"/>
+    </declare-styleable>
 </resources>

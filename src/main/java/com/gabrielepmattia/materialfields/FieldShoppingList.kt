@@ -27,7 +27,8 @@ import com.gabrielepmattia.materialfields.utils.Dialogs
  */
 
 /**
- * Build a fully functional shopping list control. addItemPlaceholder parameter is mandatory.
+ * Build a fully functional shopping list control. Properties of the view:
+ * - addItemPlaceholder Placeholder to see for add item button (mandatory)
  */
 class FieldShoppingList : LinearLayout {
 
