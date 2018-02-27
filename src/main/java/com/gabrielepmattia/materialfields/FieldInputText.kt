@@ -50,7 +50,7 @@ class FieldInputText : Field, View.OnClickListener {
                 LayoutInflater.from(context),
                 title,
                 context.getString(R.string.dialog_action_ok),
-                context.getString(R.string.dialog_action_cancel), PositiveAction(), NegativeAction())
+                context.getString(R.string.dialog_action_cancel), PositiveAction(), NegativeAction(), "")
     }
 
     /*
@@ -62,7 +62,7 @@ class FieldInputText : Field, View.OnClickListener {
             var dialogView: AlertDialog = dialogInterface as AlertDialog
             var newText = dialogView.findViewById<EditText>(R.id.dialog_input_edittext).text
             if(!newText.equals(mCurrentValue)) {
-                mSubtitleView!!.text = newText
+                mSubtitleView!!.text = newText.toString()
                 if(changeListener != null) changeListener!!()
             }
         }

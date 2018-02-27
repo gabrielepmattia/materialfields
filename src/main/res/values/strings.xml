@@ -2,4 +2,6 @@
     <string name="app_name">MaterialFields</string>
     <string name="dialog_action_ok">Ok</string>
     <string name="dialog_action_cancel">Cancel</string>
+    <string name="dialog_delete_header">Remove item</string>
+    <string name="dialog_delete_description">Are you sure to remove \"%1$s\"?</string>
 </resources>

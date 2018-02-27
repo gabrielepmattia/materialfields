@@ -11,4 +11,7 @@
         <attr name="title"/>
     </declare-styleable>
 
+    <declare-styleable name="FieldShoppingList">
+        <attr name="addItemPlaceHolder" format="string" required="true"/>
+    </declare-styleable>
 </resources>
