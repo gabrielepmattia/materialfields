@@ -78,7 +78,7 @@ class FieldShoppingList : LinearLayout {
     /*
      * Adapter
      */
-    inner class FieldShoppingListRecyclerAdapter : RecyclerView.Adapter<FieldShoppingListRecyclerAdapter.ViewHolder>() {
+    private inner class FieldShoppingListRecyclerAdapter : RecyclerView.Adapter<FieldShoppingListRecyclerAdapter.ViewHolder>() {
 
         val TAG: String = FieldShoppingListRecyclerAdapter::class.java.simpleName
 

@@ -41,7 +41,7 @@ open class Field : LinearLayout {
         }
 
     var drawable: Drawable?
-        set(d: Drawable?) {
+        set(d) {
             mDrawableView!!.setImageDrawable(d)
         }
         get() {
