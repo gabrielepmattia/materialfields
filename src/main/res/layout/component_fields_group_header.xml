@@ -8,7 +8,7 @@
         android:id="@+id/fields_group_header_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fields group header"
+        android:text="FieldsGroupHeader"
         android:textStyle="bold"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"

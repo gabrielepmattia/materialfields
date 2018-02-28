@@ -36,6 +36,8 @@ class FieldShoppingList : LinearLayout {
 
     private var mAddItemPlaceHolder: String? = null
 
+    var items: ArrayList<String> = ArrayList()
+
     /*
 * Constructors
 */
@@ -82,8 +84,6 @@ class FieldShoppingList : LinearLayout {
 
         val TAG: String = FieldShoppingListRecyclerAdapter::class.java.simpleName
 
-        private var items: ArrayList<String> = ArrayList()
-
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             var mIcon: ImageView? = null
             var mContent: TextView? = null
@@ -112,14 +112,14 @@ class FieldShoppingList : LinearLayout {
                 holder.mIcon!!.setImageDrawable(holder.itemView.context.getDrawable(R.drawable.pencil))
                 holder.mContent!!.text = mAddItemPlaceHolder
                 holder.mContent!!.setTypeface(null, Typeface.ITALIC)
-                holder.mContent!!.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.colorGrey600))
+                holder.mContent!!.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.grey600))
                 holder.mIcon!!.setOnClickListener(null)
             } else {
                 // Standard entry
                 holder.mContent!!.text = items[holder.adapterPosition]
                 holder.mIcon!!.setImageDrawable(holder.itemView.context.getDrawable(R.drawable.close))
                 holder.mContent!!.setTypeface(null, Typeface.NORMAL)
-                holder.mContent!!.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.colorBlack))
+                holder.mContent!!.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.black))
 
                 holder.mIcon!!.setOnClickListener { v:View ->
                     Dialogs.showDialogWithPNButton(

@@ -1,15 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorWhite">#FAFAFA</color>
-    <color name="colorBlack">#000000</color>
+    <color name="white">#FAFAFA</color>
+    <color name="black">#000000</color>
 
-    <color name="colorGrey100">#F5F5F5</color>
-    <color name="colorGrey200">#EEEEEE</color>
-    <color name="colorGrey300">#E0E0E0</color>
-    <color name="colorGrey400">#BDBDBD</color>
-    <color name="colorGrey500">#9E9E9E</color>
-    <color name="colorGrey600">#757575</color>
-    <color name="colorGrey700">#616161</color>
-    <color name="colorGrey800">#424242</color>
-    <color name="colorGrey900">#212121</color>
+    <color name="grey100">#F5F5F5</color>
+    <color name="grey200">#EEEEEE</color>
+    <color name="grey300">#E0E0E0</color>
+    <color name="grey400">#BDBDBD</color>
+    <color name="grey500">#9E9E9E</color>
+    <color name="grey600">#757575</color>
+    <color name="grey700">#616161</color>
+    <color name="grey800">#424242</color>
+    <color name="grey900">#212121</color>
+
+    <color name="red50">#FFEBEE</color>
+    <color name="red100">#FFCDD2</color>
+    <color name="red200">#EF9A9A</color>
+    <color name="red300">#E57373</color>
+    <color name="red400">#EF5350</color>
+    <color name="red500">#F44336</color>
+    <color name="red600">#E53935</color>
+    <color name="red700">#D32F2F</color>
+    <color name="red800">#C62828</color>
+    <color name="red900">#B71C1C</color>
+    <color name="redA100">#FF8A80</color>
+    <color name="redA200">#FF5252</color>
+    <color name="redA400">#FF1744</color>
+    <color name="redA700">#D50000</color>
 </resources>

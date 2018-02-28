@@ -44,7 +44,7 @@ object Dialogs {
 
     fun showDialogWithInputAndPNButtons(context: Context,
                                         inflater: LayoutInflater,
-                                        title: String,
+                                        title: String?,
                                         positiveLabel: String,
                                         negativeLabel: String,
                                         positiveAction: DialogInterface.OnClickListener,
@@ -52,13 +52,14 @@ object Dialogs {
                                         defaultText: String?) {
 
         val builder = AlertDialog.Builder(context)
-        builder.setTitle(title)
+        builder.setTitle(title ?: Dialogs::class.java.simpleName)
         val dialogInputView = inflater.inflate(R.layout.dialog_input_text, null)
 
         // Set the default text
         if(defaultText != null) {
             val editText: EditText = dialogInputView.findViewById(R.id.dialog_input_edittext)
             editText.setText(defaultText)
+            editText.setSelection(defaultText.length)
         }
 
         builder.setView(dialogInputView)

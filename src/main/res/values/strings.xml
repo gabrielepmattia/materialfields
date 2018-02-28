@@ -4,4 +4,7 @@
     <string name="dialog_action_cancel">Cancel</string>
     <string name="dialog_delete_header">Remove item</string>
     <string name="dialog_delete_description">Are you sure to remove \"%1$s\"?</string>
+
+    <string name="no_value">None</string>
+    <string name="required_tooltip">This field is required</string>
 </resources>

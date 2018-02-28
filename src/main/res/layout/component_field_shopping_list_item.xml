@@ -12,7 +12,7 @@
         android:id="@+id/field_shopping_list_item_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite">
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/field_shopping_list_item_image"
@@ -21,7 +21,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="12dp"
             android:src="@drawable/pencil"
-            android:tint="@color/colorGrey700"
+            android:tint="@color/grey700"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/close" />
@@ -44,8 +44,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="0dp"
-                android:text="Shopping List Item"
-                android:textColor="@color/colorBlack"
+                android:text="FieldShoppingListItem"
+                android:textColor="@color/black"
                 android:textSize="@dimen/item_list_subtitle"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="0dp"
-            android:background="@color/colorGrey300"
+            android:background="@color/grey300"
             app:layout_constraintBottom_toBottomOf="parent" />
     </android.support.constraint.ConstraintLayout>
 

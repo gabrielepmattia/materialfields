@@ -5,11 +5,14 @@ import android.content.res.TypedArray
 import android.graphics.drawable.Drawable
 import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 
 /**
  * Created by gabry3795 on 26/02/2018.
@@ -23,32 +26,39 @@ open class Field : LinearLayout {
     protected var mSubtitleView: TextView? = null
     protected var mDrawableView: ImageView? = null
     protected var mContainer: ConstraintLayout? = null
+    protected var mAlertDrawableView: ImageView? = null
 
-    var title: String
+    var title: String?
         set(s) {
-            mTitleView!!.text = s
+            if (s == null) {
+                mTitleView!!.text = Field::class.java.simpleName
+            } else {
+                mTitleView!!.text = s
+            }
         }
         get() {
             return mTitleView!!.text.toString()
         }
 
-    var subtitle: String
+    var value: String? = ""
         set(s) {
-            mSubtitleView!!.text = s
-        }
-        get() {
-            return mTitleView!!.text.toString()
+            if (s == null || s.isEmpty()) mSubtitleView!!.text = context.getString(R.string.no_value)
+            else mSubtitleView!!.text = s
+            field = s
         }
 
     var drawable: Drawable?
         set(d) {
-            mDrawableView!!.setImageDrawable(d)
+            if (d == null) {
+                mDrawableView!!.visibility = GONE
+            } else {
+                mSubtitleView!!.visibility = VISIBLE
+                mDrawableView!!.setImageDrawable(d)
+            }
         }
         get() {
             return mDrawableView!!.drawable
         }
-
-    protected var mCurrentValue: String? = null
 
     /*
  * Constructors
@@ -83,17 +93,19 @@ open class Field : LinearLayout {
     }
 
     private fun initAttrs(attrs: AttributeSet) {
-        mTitleView = findViewById(R.id.field_input_text_title)
-        mSubtitleView = findViewById(R.id.field_input_text_subtitle)
-        mDrawableView = findViewById(R.id.field_input_text_image)
-        mContainer = findViewById(R.id.field_input_container)
+        mTitleView = findViewById(R.id.field_title)
+        mSubtitleView = findViewById(R.id.field_subtitle)
+        mDrawableView = findViewById(R.id.field_image)
+        mContainer = findViewById(R.id.field_container)
+        mAlertDrawableView = findViewById(R.id.field_alert_image)
+        mAlertDrawableView!!.visibility = GONE
 
-        val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.FieldInputText) as TypedArray
-        val tempTitle = t.getString(R.styleable.FieldInputText_title)
-        if (tempTitle == null) throw RuntimeException("title cannot be empty!") else title = tempTitle
+        val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.Field) as TypedArray
+        val tempTitle = t.getString(R.styleable.Field_title)
+        if (tempTitle != null) title = tempTitle
 
-        val tempSubtitle = t.getString(R.styleable.FieldInputText_subtitle)
-        if (tempSubtitle == null) mSubtitleView!!.visibility = View.GONE else subtitle = tempSubtitle
+        val tempSubtitle = t.getString(R.styleable.Field_value)
+        value = tempSubtitle
 
         drawable = t.getDrawable(R.styleable.FieldInputText_drawable)
         t.recycle()
@@ -108,5 +120,54 @@ open class Field : LinearLayout {
         mContainer!!.setOnClickListener(l)
     }
 
+    /*
+     * Validation
+     */
+
+    protected var validator: ((_: String?) -> Boolean)? = null
+    protected var errorMessage: String? = null
+
+    /**
+     * Set the [validator] for the current field. A validator is composed by an [errorMessage],
+     * to display when the validation is not passing and a validator, a function that takes as
+     * input a string and returns a Boolean, true or false according to the fact that validation
+     * passes or not
+     */
+    fun setValidator(errorMessage: String, validator: ((_: String?) -> Boolean)?) {
+        this.validator = validator
+        this.errorMessage = errorMessage
+    }
+
+    /**
+     * Remove the current validator, if any
+     */
+    fun removeValidator() {
+        this.validator = null
+        this.errorMessage = null
+    }
+
+    /**
+     * Validate the field by calling the set validator
+     *
+     * @return Response of validation
+     */
+    fun validate(): Boolean {
+        if (validator == null) {
+            Log.w(TAG, "No validator set! Validation returns always true")
+            return true
+        }
+        val res = validator!!(value)
+        if (res) mAlertDrawableView!!.visibility = View.GONE
+        else {
+            mAlertDrawableView!!.visibility = View.VISIBLE
+            val t: Toast? = Toast.makeText(context, errorMessage, LENGTH_SHORT)
+            t!!.show()
+        }
+        return res
+    }
+
+    companion object {
+        private var TAG = Field::class.java.simpleName
+    }
 
 }
