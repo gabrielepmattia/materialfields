@@ -4,27 +4,25 @@
     <declare-styleable name="Field">
         <attr name="title" format="string" />
         <attr name="value" format="string" />
-        <attr name="drawable" format="reference"/>
+        <attr name="drawable" format="reference" />
+        <attr name="disabled" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="FieldInputText">
-        <attr name="title"  />
-        <attr name="value"/>
-        <attr name="drawable" />
         <attr name="required" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="FieldCheckBox">
-        <attr name="title"/>
-        <attr name="subtitle"/>
+        <attr name="title" />
+        <attr name="subtitle" />
     </declare-styleable>
 
     <declare-styleable name="Header">
-        <attr name="title"/>
+        <attr name="title" />
     </declare-styleable>
 
     <declare-styleable name="ShoppingList">
-        <attr name="addItemPlaceHolder" format="string" required="true"/>
+        <attr name="addItemPlaceHolder" format="string" required="true" />
     </declare-styleable>
 
 </resources>

@@ -14,7 +14,7 @@ import com.gabrielepmattia.materialfields.utils.Dialogs
 /**
  * Created by gabry3795 on 25/02/2018.
  */
-class FieldInputText : Field, View.OnClickListener {
+class FieldInputText : Field {
 
     var changeListener: ((oldValue: String?, newValue: String?) -> Unit)? = null
 
@@ -45,21 +45,25 @@ class FieldInputText : Field, View.OnClickListener {
         val req = t.getBoolean(R.styleable.FieldInputText_required, false)
         t.recycle()
 
+        // set required if passed as parameter
         if (req) setRequired(true)
     }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
 
-        mContainer!!.setOnClickListener(this)
+        // Init the listener for the input dialog
+        initOnClickListener()
     }
 
-    override fun onClick(p0: View?) {
-        Dialogs.showDialogWithInputAndPNButtons(context,
-                LayoutInflater.from(context),
-                title,
-                context.getString(R.string.dialog_action_ok),
-                context.getString(R.string.dialog_action_cancel), PositiveAction(), NegativeAction(), value)
+    private fun initOnClickListener() {
+        setOnClickListener({ _ ->
+            Dialogs.showDialogWithInputAndPNButtons(context,
+                    LayoutInflater.from(context),
+                    title,
+                    context.getString(R.string.dialog_action_ok),
+                    context.getString(R.string.dialog_action_cancel), PositiveAction(), NegativeAction(), value)
+        })
     }
 
     /*

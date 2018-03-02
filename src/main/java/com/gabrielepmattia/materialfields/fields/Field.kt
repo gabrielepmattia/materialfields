@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.drawable.Drawable
 import android.support.constraint.ConstraintLayout
+import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,10 @@ import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import com.gabrielepmattia.materialfields.R
+import android.graphics.PorterDuff.Mode.SRC_IN
+import android.util.TypedValue
+
+
 
 /**
  * Created by gabry3795 on 26/02/2018.
@@ -61,6 +66,26 @@ open class Field : LinearLayout {
             return mDrawableView!!.drawable
         }
 
+    var disabled: Boolean = false
+        set(b) {
+            field = b
+            if (b) {
+                mContainer?.setBackgroundColor(ContextCompat.getColor(context, R.color.grey300))
+                mContainer?.isClickable = true
+                mContainer?.isFocusable = true
+                mTitleView?.setTextColor(ContextCompat.getColor(context, R.color.grey600))
+                mSubtitleView?.setTextColor(ContextCompat.getColor(context, R.color.grey500))
+                mDrawableView?.setColorFilter(ContextCompat.getColor(context, R.color.grey500), SRC_IN)
+            } else {
+                mContainer?.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+                mContainer?.isClickable = false
+                mContainer?.isFocusable = false
+                mTitleView?.setTextColor(ContextCompat.getColor(context, R.color.black))
+                mSubtitleView?.setTextColor(ContextCompat.getColor(context, R.color.grey600))
+                mDrawableView?.setColorFilter(ContextCompat.getColor(context, R.color.grey700), SRC_IN)
+            }
+        }
+
     /*
  * Constructors
  */
@@ -102,13 +127,19 @@ open class Field : LinearLayout {
         mAlertDrawableView!!.visibility = GONE
 
         val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.Field) as TypedArray
+        // title
         val tempTitle = t.getString(R.styleable.Field_title)
         if (tempTitle != null) title = tempTitle
 
+        // subtitle
         val tempSubtitle = t.getString(R.styleable.Field_value)
         value = tempSubtitle
 
-        drawable = t.getDrawable(R.styleable.FieldInputText_drawable)
+        // disabled
+        disabled = t.getBoolean(R.styleable.Field_disabled, false)
+
+        // drawable
+        drawable = t.getDrawable(R.styleable.Field_drawable)
         t.recycle()
     }
 
@@ -118,7 +149,8 @@ open class Field : LinearLayout {
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
-        mContainer!!.setOnClickListener(l)
+        // Override the click listener because field can be disabled
+        mContainer!!.setOnClickListener({ v -> if (!disabled) l?.onClick(v) })
     }
 
     /*
