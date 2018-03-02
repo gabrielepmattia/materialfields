@@ -18,8 +18,6 @@ import com.gabrielepmattia.materialfields.R
 import android.graphics.PorterDuff.Mode.SRC_IN
 import android.util.TypedValue
 
-
-
 /**
  * Created by gabry3795 on 26/02/2018.
  */
@@ -30,7 +28,6 @@ import android.util.TypedValue
 open class Field : LinearLayout {
     protected var mTitleView: TextView? = null
     protected var mSubtitleView: TextView? = null
-    protected var mDrawableView: ImageView? = null
     protected var mContainer: ConstraintLayout? = null
     protected var mAlertDrawableView: ImageView? = null
 
@@ -53,36 +50,21 @@ open class Field : LinearLayout {
             field = s
         }
 
-    var drawable: Drawable?
-        set(d) {
-            if (d == null) {
-                mDrawableView!!.visibility = GONE
-            } else {
-                mSubtitleView!!.visibility = VISIBLE
-                mDrawableView!!.setImageDrawable(d)
-            }
-        }
-        get() {
-            return mDrawableView!!.drawable
-        }
-
-    var disabled: Boolean = false
+    open var disabled: Boolean = false
         set(b) {
             field = b
             if (b) {
                 mContainer?.setBackgroundColor(ContextCompat.getColor(context, R.color.grey300))
-                mContainer?.isClickable = true
-                mContainer?.isFocusable = true
-                mTitleView?.setTextColor(ContextCompat.getColor(context, R.color.grey600))
-                mSubtitleView?.setTextColor(ContextCompat.getColor(context, R.color.grey500))
-                mDrawableView?.setColorFilter(ContextCompat.getColor(context, R.color.grey500), SRC_IN)
-            } else {
-                mContainer?.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
                 mContainer?.isClickable = false
                 mContainer?.isFocusable = false
+                mTitleView?.setTextColor(ContextCompat.getColor(context, R.color.grey600))
+                mSubtitleView?.setTextColor(ContextCompat.getColor(context, R.color.grey500))
+            } else {
+                mContainer?.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+                mContainer?.isClickable = true
+                mContainer?.isFocusable = true
                 mTitleView?.setTextColor(ContextCompat.getColor(context, R.color.black))
                 mSubtitleView?.setTextColor(ContextCompat.getColor(context, R.color.grey600))
-                mDrawableView?.setColorFilter(ContextCompat.getColor(context, R.color.grey700), SRC_IN)
             }
         }
 
@@ -91,61 +73,55 @@ open class Field : LinearLayout {
  */
 
     constructor(context: Context) : super(context) {
-        initView(context)
+        this.initView(context)
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        initView(context)
-        initAttrs(attrs)
+        this.initView(context)
+        this.initAttrs(attrs)
     }
 
     constructor(context: Context, attrs: AttributeSet, defAttr: Int) : super(context, attrs, defAttr) {
-        initView(context)
-        initAttrs(attrs)
+        this.initView(context)
+        this.initAttrs(attrs)
     }
 
     constructor(context: Context, attrs: AttributeSet, defAttr: Int, defRes: Int) : super(context, attrs, defAttr, defRes) {
-        initView(context)
-        initAttrs(attrs)
+        this.initView(context)
+        this.initAttrs(attrs)
     }
 
     /*
      * Helpers
      */
 
-    private fun initView(context: Context) {
+    protected open fun initView(context: Context) {
         val i: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         i.inflate(R.layout.component_field, this, true)
     }
 
-    private fun initAttrs(attrs: AttributeSet) {
+    protected open fun initAttrs(attrs: AttributeSet) {
         mTitleView = findViewById(R.id.field_title)
         mSubtitleView = findViewById(R.id.field_subtitle)
-        mDrawableView = findViewById(R.id.field_image)
         mContainer = findViewById(R.id.field_container)
         mAlertDrawableView = findViewById(R.id.field_alert_image)
         mAlertDrawableView!!.visibility = GONE
 
+        // get attrs
         val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.Field) as TypedArray
-        // title
         val tempTitle = t.getString(R.styleable.Field_title)
-        if (tempTitle != null) title = tempTitle
-
-        // subtitle
         val tempSubtitle = t.getString(R.styleable.Field_value)
-        value = tempSubtitle
-
-        // disabled
-        disabled = t.getBoolean(R.styleable.Field_disabled, false)
-
-        // drawable
-        drawable = t.getDrawable(R.styleable.Field_drawable)
+        val tempDisabled = t.getBoolean(R.styleable.Field_disabled, false)
         t.recycle()
+
+        // set attrs
+        if (tempTitle != null) title = tempTitle
+        value = tempSubtitle
+        disabled = tempDisabled
     }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-
     }
 
     override fun setOnClickListener(l: OnClickListener?) {

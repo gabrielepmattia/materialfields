@@ -3,86 +3,88 @@ package com.gabrielepmattia.materialfields.fields
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.support.constraint.ConstraintLayout
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import com.gabrielepmattia.materialfields.R
 
 /**
- * Created by gabry3795 on 27/02/2018.
+ * Created by gabry3795 on 02/03/2018.
  */
+open class FieldGeneric : Field {
+    protected var mDrawableView: ImageView? = null
 
-/**
- * Simple checkbox form control. You have to specify:
- *  - title: The title of the checkbox (mandatory)
- *  - subtitle: The possible description of the checkbox
- */
-class FieldCheckBox : Field {
-
-    private var mCheckBox: CheckBox? = null
-
-    var checked: Boolean
-        set(b) {
-            mCheckBox!!.isChecked = b
+    var drawable: Drawable?
+        set(d) {
+            if (d == null) {
+                mDrawableView!!.visibility = LinearLayout.GONE
+            } else {
+                mSubtitleView!!.visibility = LinearLayout.VISIBLE
+                mDrawableView!!.setImageDrawable(d)
+            }
         }
         get() {
-            return mCheckBox!!.isChecked
+            return mDrawableView!!.drawable
         }
 
     override var disabled: Boolean
         set(b) {
             super.disabled = b
-            mCheckBox?.isEnabled = !b
+            if (b) mDrawableView?.setColorFilter(ContextCompat.getColor(context, R.color.grey500), PorterDuff.Mode.SRC_IN)
+            else mDrawableView?.setColorFilter(ContextCompat.getColor(context, R.color.grey700), PorterDuff.Mode.SRC_IN)
         }
         get() {
             return super.disabled
         }
 
+
     /*
-* Constructors
-*/
+ * Constructors
+ */
 
     constructor(context: Context) : super(context)
-
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
-
     constructor(context: Context, attrs: AttributeSet, defAttr: Int) : super(context, attrs, defAttr)
-
     constructor(context: Context, attrs: AttributeSet, defAttr: Int, defRes: Int) : super(context, attrs, defAttr, defRes)
 
     /*
      * Helpers
      */
-    override fun initView(c: Context) {
+
+    override fun initView(context: Context) {
         val i: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        i.inflate(R.layout.component_field_checkbox, this, true)
+        i.inflate(R.layout.component_field_generic, this, true)
     }
 
     override fun initAttrs(attrs: AttributeSet) {
-        mCheckBox = findViewById(R.id.field_check)
+        mDrawableView = findViewById(R.id.field_image)
 
-        // get attrs
-        val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.FieldCheckBox) as TypedArray
-        val tempChecked = t.getBoolean(R.styleable.FieldCheckBox_checked, false)
+        val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.FieldGeneric) as TypedArray
+        val tempDrawable = t.getDrawable(R.styleable.FieldGeneric_drawable)
         t.recycle()
 
         // init all base attrs
         super.initAttrs(attrs)
 
         // init attrs
-        checked = tempChecked
+        drawable = tempDrawable
     }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-
-        mContainer!!.setOnClickListener({ v: View ->
-            if(!disabled) mCheckBox!!.toggle()
-        })
     }
+
+
+    companion object {
+        private var TAG = FieldGeneric::class.java.simpleName
+    }
+
 }

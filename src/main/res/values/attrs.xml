@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- fields -->
     <declare-styleable name="Field">
         <attr name="title" format="string" />
         <attr name="value" format="string" />
-        <attr name="drawable" format="reference" />
         <attr name="disabled" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="FieldGeneric">
+        <attr name="drawable" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="FieldInputText">
@@ -13,14 +17,15 @@
     </declare-styleable>
 
     <declare-styleable name="FieldCheckBox">
-        <attr name="title" />
-        <attr name="subtitle" />
+        <attr name="checked" format="boolean" />
     </declare-styleable>
 
+    <!-- Headers -->
     <declare-styleable name="Header">
         <attr name="title" />
     </declare-styleable>
 
+    <!-- Extra -->
     <declare-styleable name="ShoppingList">
         <attr name="addItemPlaceHolder" format="string" required="true" />
     </declare-styleable>

@@ -14,7 +14,7 @@ import com.gabrielepmattia.materialfields.utils.Dialogs
 /**
  * Created by gabry3795 on 25/02/2018.
  */
-class FieldInputText : Field {
+class FieldInputText : FieldGeneric {
 
     var changeListener: ((oldValue: String?, newValue: String?) -> Unit)? = null
 
@@ -23,27 +23,21 @@ class FieldInputText : Field {
 */
 
     constructor(context: Context) : super(context)
-
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        initAttrs(attrs)
-    }
-
-    constructor(context: Context, attrs: AttributeSet, defAttr: Int) : super(context, attrs, defAttr) {
-        initAttrs(attrs)
-    }
-
-    constructor(context: Context, attrs: AttributeSet, defAttr: Int, defRes: Int) : super(context, attrs, defAttr, defRes) {
-        initAttrs(attrs)
-    }
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
+    constructor(context: Context, attrs: AttributeSet, defAttr: Int) : super(context, attrs, defAttr)
+    constructor(context: Context, attrs: AttributeSet, defAttr: Int, defRes: Int) : super(context, attrs, defAttr, defRes)
 
     /*
      * Helpers
      */
 
-    private fun initAttrs(attrs: AttributeSet) {
+    override fun initAttrs(attrs: AttributeSet) {
         val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.FieldInputText) as TypedArray
         val req = t.getBoolean(R.styleable.FieldInputText_required, false)
         t.recycle()
+
+        // init all base attrs
+        super.initAttrs(attrs)
 
         // set required if passed as parameter
         if (req) setRequired(true)
