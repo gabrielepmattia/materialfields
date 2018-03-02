@@ -1,19 +1,14 @@
-package com.gabrielepmattia.materialfields
+package com.gabrielepmattia.materialfields.fields
 
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.res.TypedArray
-import android.graphics.drawable.Drawable
-import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import com.gabrielepmattia.materialfields.R
 import com.gabrielepmattia.materialfields.utils.Dialogs
 
 /**
@@ -103,7 +98,7 @@ class FieldInputText : Field, View.OnClickListener {
      */
     fun setRequired(required: Boolean) {
         if (required) {
-            this.setValidator(context.getString(R.string.required_tooltip), { s: String? ->
+            this.setValidator(context.getString(R.string.required_tooltip, title), { s: String? ->
                 !(s == null || s.isEmpty())
             })
         } else this.removeValidator()

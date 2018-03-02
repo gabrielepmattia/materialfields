@@ -14,16 +14,17 @@
         <attr name="required" format="boolean" />
     </declare-styleable>
 
-    <declare-styleable name="FieldsGroupHeader">
-        <attr name="title"/>
-    </declare-styleable>
-
-    <declare-styleable name="FieldShoppingList">
-        <attr name="addItemPlaceHolder" format="string" required="true"/>
-    </declare-styleable>
-
     <declare-styleable name="FieldCheckBox">
         <attr name="title"/>
         <attr name="subtitle"/>
     </declare-styleable>
+
+    <declare-styleable name="Header">
+        <attr name="title"/>
+    </declare-styleable>
+
+    <declare-styleable name="ShoppingList">
+        <attr name="addItemPlaceHolder" format="string" required="true"/>
+    </declare-styleable>
+
 </resources>

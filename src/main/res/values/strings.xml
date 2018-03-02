@@ -6,5 +6,5 @@
     <string name="dialog_delete_description">Are you sure to remove \"%1$s\"?</string>
 
     <string name="no_value">None</string>
-    <string name="required_tooltip">This field is required</string>
+    <string name="required_tooltip">Field \"%1$s\" is required</string>
 </resources>

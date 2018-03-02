@@ -1,4 +1,4 @@
-package com.gabrielepmattia.materialfields
+package com.gabrielepmattia.materialfields.fields
 
 import android.content.Context
 import android.content.res.TypedArray
@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.gabrielepmattia.materialfields.R
 
 /**
  * Created by gabry3795 on 27/02/2018.

@@ -1,19 +1,18 @@
-package com.gabrielepmattia.materialfields
+package com.gabrielepmattia.materialfields.headers
 
 import android.content.Context
 import android.content.res.TypedArray
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.gabrielepmattia.materialfields.R
 
 /**
  * Created by gabry3795 on 25/02/2018.
  */
 
-class FieldsGroupHeader : LinearLayout {
+class Header : LinearLayout {
     var mTitleView: TextView? = null
 
     var title: String
@@ -55,8 +54,8 @@ class FieldsGroupHeader : LinearLayout {
     private fun initAttrs(attrs: AttributeSet) {
         mTitleView = findViewById(R.id.fields_group_header_title)
 
-        val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.FieldsGroupHeader) as TypedArray
-        title = t.getString(R.styleable.FieldsGroupHeader_title)
+        val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.Header) as TypedArray
+        title = t.getString(R.styleable.Header_title)
         t.recycle()
     }
 

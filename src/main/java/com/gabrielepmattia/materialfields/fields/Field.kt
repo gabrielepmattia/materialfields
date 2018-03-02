@@ -1,4 +1,4 @@
-package com.gabrielepmattia.materialfields
+package com.gabrielepmattia.materialfields.fields
 
 import android.content.Context
 import android.content.res.TypedArray
@@ -13,6 +13,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import com.gabrielepmattia.materialfields.R
 
 /**
  * Created by gabry3795 on 26/02/2018.

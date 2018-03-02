@@ -1,16 +1,13 @@
-package com.gabrielepmattia.materialfields
+package com.gabrielepmattia.materialfields.extra
 
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.res.TypedArray
 import android.graphics.Typeface
-import android.graphics.Typeface.ITALIC
-import android.support.constraint.ConstraintLayout
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.text.Editable
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,6 +17,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.gabrielepmattia.materialfields.R
 import com.gabrielepmattia.materialfields.utils.Dialogs
 
 /**
@@ -30,7 +28,7 @@ import com.gabrielepmattia.materialfields.utils.Dialogs
  * Build a fully functional shopping list control. Properties of the view:
  * - addItemPlaceholder Placeholder to see for add item button (mandatory)
  */
-class FieldShoppingList : LinearLayout {
+class ShoppingList : LinearLayout {
 
     private var mRecyclerView: RecyclerView? = null
 
@@ -49,9 +47,9 @@ class FieldShoppingList : LinearLayout {
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         initView(context)
 
-        val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.FieldShoppingList) as TypedArray
-        if(!t.hasValue(R.styleable.FieldShoppingList_addItemPlaceHolder)) throw RuntimeException("addItemPlaceholder is mandatory")
-        mAddItemPlaceHolder = t.getString(R.styleable.FieldShoppingList_addItemPlaceHolder)
+        val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.ShoppingList) as TypedArray
+        if(!t.hasValue(R.styleable.ShoppingList_addItemPlaceHolder)) throw RuntimeException("addItemPlaceholder is mandatory")
+        mAddItemPlaceHolder = t.getString(R.styleable.ShoppingList_addItemPlaceHolder)
         t.recycle()
     }
 
@@ -74,15 +72,15 @@ class FieldShoppingList : LinearLayout {
         mRecyclerView = findViewById(R.id.field_shopping_list_recycler)
         mRecyclerView!!.setHasFixedSize(true)
         mRecyclerView!!.layoutManager = LinearLayoutManager(context)
-        mRecyclerView!!.adapter = FieldShoppingListRecyclerAdapter()
+        mRecyclerView!!.adapter = ShoppingListRecyclerAdapter()
     }
 
     /*
      * Adapter
      */
-    private inner class FieldShoppingListRecyclerAdapter : RecyclerView.Adapter<FieldShoppingListRecyclerAdapter.ViewHolder>() {
+    private inner class ShoppingListRecyclerAdapter : RecyclerView.Adapter<ShoppingListRecyclerAdapter.ViewHolder>() {
 
-        val TAG: String = FieldShoppingListRecyclerAdapter::class.java.simpleName
+        val TAG: String = ShoppingListRecyclerAdapter::class.java.simpleName
 
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             var mIcon: ImageView? = null
@@ -104,7 +102,7 @@ class FieldShoppingList : LinearLayout {
             return items.size + 1
         }
 
-        override fun onBindViewHolder(holder: FieldShoppingListRecyclerAdapter.ViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             Log.d(TAG, "Currently binding position $position")
             // Set styles of last item and others
             if (holder.adapterPosition == itemCount - 1) {
