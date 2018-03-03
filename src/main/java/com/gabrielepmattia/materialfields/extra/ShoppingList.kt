@@ -4,7 +4,9 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.res.TypedArray
+import android.graphics.PorterDuff
 import android.graphics.Typeface
+import android.support.constraint.ConstraintLayout
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -31,10 +33,26 @@ import com.gabrielepmattia.materialfields.utils.Dialogs
 class ShoppingList : LinearLayout {
 
     private var mRecyclerView: RecyclerView? = null
-
+    private var mRecyclerViewAdapter: ShoppingListRecyclerAdapter? = null
+    private var mRecyclerViewLayoutManager: LinearLayoutManager? = null
     private var mAddItemPlaceHolder: String? = null
-
     var items: ArrayList<String> = ArrayList()
+
+    var disabledAdd: Boolean = false
+        set(b) {
+            if (b == field) return
+            field = b
+            // update only if different
+            if (mRecyclerViewAdapter!!.disabledAdd != b) mRecyclerViewAdapter!!.disabledAdd = b
+        }
+
+    var disabledEntries: Boolean = false
+        set(b) {
+            if (b == field) return
+            field = b
+            // update only if different
+            if (mRecyclerViewAdapter!!.disabledEntries != b) mRecyclerViewAdapter!!.disabledEntries = b
+        }
 
     /*
 * Constructors
@@ -46,19 +64,17 @@ class ShoppingList : LinearLayout {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         initView(context)
-
-        val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.ShoppingList) as TypedArray
-        if(!t.hasValue(R.styleable.ShoppingList_addItemPlaceHolder)) throw RuntimeException("addItemPlaceholder is mandatory")
-        mAddItemPlaceHolder = t.getString(R.styleable.ShoppingList_addItemPlaceHolder)
-        t.recycle()
+        initAttrs(attrs)
     }
 
     constructor(context: Context, attrs: AttributeSet, defAttr: Int) : super(context, attrs, defAttr) {
         initView(context)
+        initAttrs(attrs)
     }
 
     constructor(context: Context, attrs: AttributeSet, defAttr: Int, defRes: Int) : super(context, attrs, defAttr, defRes) {
         initView(context)
+        initAttrs(attrs)
     }
 
     private fun initView(context: Context) {
@@ -66,13 +82,24 @@ class ShoppingList : LinearLayout {
         i.inflate(R.layout.component_field_shopping_list, this, true)
     }
 
+    private fun initAttrs(attrs: AttributeSet) {
+        mRecyclerView = findViewById(R.id.field_shopping_list_recycler)
+        mRecyclerViewAdapter = ShoppingListRecyclerAdapter()
+        mRecyclerViewLayoutManager = LinearLayoutManager(context)
+
+        val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.ShoppingList) as TypedArray
+        mAddItemPlaceHolder = t.getString(R.styleable.ShoppingList_addItemPlaceHolder)
+        disabledAdd = t.getBoolean(R.styleable.ShoppingList_disabledAdd, false)
+        disabledEntries = t.getBoolean(R.styleable.ShoppingList_disabledEntries, false)
+        t.recycle()
+    }
+
     override fun onFinishInflate() {
         super.onFinishInflate()
 
-        mRecyclerView = findViewById(R.id.field_shopping_list_recycler)
         mRecyclerView!!.setHasFixedSize(true)
-        mRecyclerView!!.layoutManager = LinearLayoutManager(context)
-        mRecyclerView!!.adapter = ShoppingListRecyclerAdapter()
+        mRecyclerView!!.layoutManager = mRecyclerViewLayoutManager
+        mRecyclerView!!.adapter = mRecyclerViewAdapter
     }
 
     /*
@@ -82,14 +109,99 @@ class ShoppingList : LinearLayout {
 
         val TAG: String = ShoppingListRecyclerAdapter::class.java.simpleName
 
+        var disabledAdd: Boolean = false
+            set(b) {
+                if (b == field) return
+                field = b
+                // update only the last entry and check if it's null. It's null when position has not yet
+                // calculated and in this case onBindViewHolder will do the job
+                val holderTemp: RecyclerView.ViewHolder =
+                        mRecyclerView!!.findViewHolderForAdapterPosition(itemCount - 1) ?: return
+                val holder = holderTemp as ShoppingListRecyclerAdapter.ViewHolder
+                if (b) holder.setDisabledElement() else holder.setAsAddElement()
+            }
+
+        var disabledEntries: Boolean = false
+            set(b) {
+                if (field == b) return
+                field = b
+                var holderTemp: RecyclerView.ViewHolder
+                var holder: ShoppingListRecyclerAdapter.ViewHolder
+                // update all view holders of entries
+                if (itemCount < 2) return // no entries available
+                for (i in 0..mRecyclerViewAdapter!!.itemCount - 2) {
+                    // check if current holder is null -- meaning not yet calculated the position
+                    holderTemp = mRecyclerView!!.findViewHolderForAdapterPosition(i) ?: continue
+                    holder = holderTemp as ShoppingListRecyclerAdapter.ViewHolder
+                    if (b) holder.setDisabledElement() else holder.setAsNormalElement()
+                }
+            }
+
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             var mIcon: ImageView? = null
             var mContent: TextView? = null
+            var mContainer: ConstraintLayout? = null
+            var mBottomLineSeparator: View? = null
 
             init {
                 mIcon = itemView.findViewById(R.id.field_shopping_list_item_image)
                 mContent = itemView.findViewById(R.id.field_shopping_list_item_content)
+                mContainer = itemView.findViewById(R.id.field_shopping_list_item_container)
+                mBottomLineSeparator = itemView.findViewById(R.id.field_shopping_list_item_bottom_line_separator)
             }
+
+            /**
+             * Set the given view holder as a normal entry, with delete action
+             */
+            fun setAsNormalElement() {
+                // Standard entry
+                mContent!!.text = items[adapterPosition]
+                mIcon!!.setImageDrawable(itemView.context.getDrawable(R.drawable.close))
+                mContent!!.setTypeface(null, Typeface.NORMAL)
+                mContent!!.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
+                mContainer!!.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+
+                mIcon!!.setColorFilter(ContextCompat.getColor(context, R.color.grey700), PorterDuff.Mode.SRC_IN)
+                mIcon!!.setOnClickListener { v: View ->
+                    if (disabledEntries) return@setOnClickListener
+                    Dialogs.showDialogWithPNButton(
+                            itemView.context,
+                            itemView.context.getString(R.string.dialog_delete_header),
+                            itemView.context.getString(R.string.dialog_delete_description, mContent!!.text),
+                            itemView.context.getString(R.string.dialog_action_ok),
+                            itemView.context.getString(R.string.dialog_action_cancel),
+                            DeleteItemOKAction(adapterPosition),
+                            AddItemCancelAction(adapterPosition)
+                    )
+                }
+                mBottomLineSeparator!!.setBackgroundColor(ContextCompat.getColor(context, R.color.grey300))
+            }
+
+            /**
+             * Set the current view holder as the adding entry
+             */
+            fun setAsAddElement() {
+                mIcon!!.setImageDrawable(itemView.context.getDrawable(R.drawable.pencil))
+                mContent!!.text = mAddItemPlaceHolder
+                mContent!!.setTypeface(null, Typeface.ITALIC)
+                mContent!!.setTextColor(ContextCompat.getColor(itemView.context, R.color.grey600))
+                mContainer!!.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+                mIcon!!.setColorFilter(ContextCompat.getColor(context, R.color.grey700), PorterDuff.Mode.SRC_IN)
+                mIcon!!.setOnClickListener(null)
+                mBottomLineSeparator!!.setBackgroundColor(ContextCompat.getColor(context, R.color.grey300))
+            }
+
+            /**
+             * Set the current element as disabled
+             */
+            fun setDisabledElement() {
+                mContainer!!.setBackgroundColor(ContextCompat.getColor(context, R.color.grey300))
+                mContent!!.setTextColor(ContextCompat.getColor(itemView.context, R.color.grey500))
+                mIcon!!.setColorFilter(ContextCompat.getColor(context, R.color.grey500), PorterDuff.Mode.SRC_IN)
+                mBottomLineSeparator!!.setBackgroundColor(ContextCompat.getColor(context, R.color.grey400))
+            }
+
+
         }
 
         override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
@@ -103,36 +215,20 @@ class ShoppingList : LinearLayout {
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            Log.d(TAG, "Currently binding position $position")
             // Set styles of last item and others
             if (holder.adapterPosition == itemCount - 1) {
-                // Add item entry
-                holder.mIcon!!.setImageDrawable(holder.itemView.context.getDrawable(R.drawable.pencil))
-                holder.mContent!!.text = mAddItemPlaceHolder
-                holder.mContent!!.setTypeface(null, Typeface.ITALIC)
-                holder.mContent!!.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.grey600))
-                holder.mIcon!!.setOnClickListener(null)
+                holder.setAsAddElement()
+                if (disabledAdd) holder.setDisabledElement()
             } else {
-                // Standard entry
-                holder.mContent!!.text = items[holder.adapterPosition]
-                holder.mIcon!!.setImageDrawable(holder.itemView.context.getDrawable(R.drawable.close))
-                holder.mContent!!.setTypeface(null, Typeface.NORMAL)
-                holder.mContent!!.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.black))
-
-                holder.mIcon!!.setOnClickListener { v:View ->
-                    Dialogs.showDialogWithPNButton(
-                            holder.itemView.context,
-                            holder.itemView.context.getString(R.string.dialog_delete_header),
-                            holder.itemView.context.getString(R.string.dialog_delete_description, holder.mContent!!.text),
-                            holder.itemView.context.getString(R.string.dialog_action_ok),
-                            holder.itemView.context.getString(R.string.dialog_action_cancel),
-                            DeleteItemOKAction(holder.adapterPosition),
-                            AddItemCancelAction(holder.adapterPosition)
-                    )
-                }
+                holder.setAsNormalElement()
+                if (disabledEntries) holder.setDisabledElement()
             }
-            // Set behavior
+
+            // Set behavior for all elements
             holder.itemView.setOnClickListener { v: View ->
+                if ((holder.adapterPosition == itemCount - 1 && disabledAdd) ||
+                        (holder.adapterPosition != itemCount - 1 && disabledEntries)) return@setOnClickListener
+
                 Dialogs.showDialogWithInputAndPNButtons(
                         holder.itemView.context,
                         LayoutInflater.from(holder.itemView.context),
@@ -164,8 +260,7 @@ class ShoppingList : LinearLayout {
                 if (mPosition > items.size - 1) {
                     items.add(editText.text.toString())
                     mRecyclerView!!.adapter.notifyItemInserted(mPosition)
-                }
-                else {
+                } else {
                     items[mPosition] = editText.text.toString()
                     mRecyclerView!!.adapter.notifyItemChanged(mPosition)
                 }

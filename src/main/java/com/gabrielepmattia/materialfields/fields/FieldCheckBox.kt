@@ -36,6 +36,7 @@ class FieldCheckBox : Field {
 
     override var disabled: Boolean
         set(b) {
+            if(b == disabled) return
             super.disabled = b
             mCheckBox?.isEnabled = !b
         }

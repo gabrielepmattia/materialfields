@@ -30,6 +30,7 @@ open class Field : LinearLayout {
     protected var mSubtitleView: TextView? = null
     protected var mContainer: ConstraintLayout? = null
     protected var mAlertDrawableView: ImageView? = null
+    protected var mBottomLineSeparator: View? = null
 
     var title: String?
         set(s) {
@@ -52,6 +53,7 @@ open class Field : LinearLayout {
 
     open var disabled: Boolean = false
         set(b) {
+            if(b == field) return
             field = b
             if (b) {
                 mContainer?.setBackgroundColor(ContextCompat.getColor(context, R.color.grey300))
@@ -59,12 +61,14 @@ open class Field : LinearLayout {
                 mContainer?.isFocusable = false
                 mTitleView?.setTextColor(ContextCompat.getColor(context, R.color.grey600))
                 mSubtitleView?.setTextColor(ContextCompat.getColor(context, R.color.grey500))
+                mBottomLineSeparator?.setBackgroundColor(ContextCompat.getColor(context, R.color.grey400))
             } else {
                 mContainer?.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
                 mContainer?.isClickable = true
                 mContainer?.isFocusable = true
                 mTitleView?.setTextColor(ContextCompat.getColor(context, R.color.black))
                 mSubtitleView?.setTextColor(ContextCompat.getColor(context, R.color.grey600))
+                mBottomLineSeparator?.setBackgroundColor(ContextCompat.getColor(context, R.color.grey300))
             }
         }
 
@@ -104,6 +108,7 @@ open class Field : LinearLayout {
         mTitleView = findViewById(R.id.field_title)
         mSubtitleView = findViewById(R.id.field_subtitle)
         mContainer = findViewById(R.id.field_container)
+        mBottomLineSeparator = findViewById(R.id.field_bottom_line_separator)
         mAlertDrawableView = findViewById(R.id.field_alert_image)
         mAlertDrawableView!!.visibility = GONE
 

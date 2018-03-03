@@ -4,16 +4,11 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
-import android.support.constraint.ConstraintLayout
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
 import com.gabrielepmattia.materialfields.R
 
 /**
@@ -37,6 +32,7 @@ open class FieldGeneric : Field {
 
     override var disabled: Boolean
         set(b) {
+            if(b == disabled) return
             super.disabled = b
             if (b) mDrawableView?.setColorFilter(ContextCompat.getColor(context, R.color.grey500), PorterDuff.Mode.SRC_IN)
             else mDrawableView?.setColorFilter(ContextCompat.getColor(context, R.color.grey700), PorterDuff.Mode.SRC_IN)

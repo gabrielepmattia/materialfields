@@ -20,14 +20,16 @@
         <attr name="checked" format="boolean" />
     </declare-styleable>
 
-    <!-- Headers -->
-    <declare-styleable name="Header">
-        <attr name="title" />
+    <!-- Texts -->
+    <declare-styleable name="Text">
+        <attr name="content"  />
     </declare-styleable>
 
     <!-- Extra -->
     <declare-styleable name="ShoppingList">
         <attr name="addItemPlaceHolder" format="string" required="true" />
+        <attr name="disabledAdd" format="boolean" />
+        <attr name="disabledEntries" format="boolean" />
     </declare-styleable>
 
 </resources>
