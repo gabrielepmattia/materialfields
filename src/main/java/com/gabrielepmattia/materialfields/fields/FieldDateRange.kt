@@ -17,10 +17,12 @@ import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentActivity
 import android.text.format.DateFormat
 import android.app.DatePickerDialog
+import android.content.DialogInterface
 import android.transition.ChangeBounds
 import android.transition.TransitionManager
 import android.view.ViewGroup
 import android.widget.*
+import com.gabrielepmattia.materialfields.utils.Dialogs
 import kotlin.math.min
 
 
@@ -28,6 +30,15 @@ import kotlin.math.min
  * Created by gabry3795 on 03/03/2018.
  */
 class FieldDateRange : Field {
+
+    /**
+     * Define the kind of the Data Range field.
+     * - [DATE_RANGE] allows the user to set a range of dates
+     * - [ONLY_START] allows the user to set only a start date
+     */
+    enum class Type {
+        DATE_RANGE, ONLY_START
+    }
 
     protected var mSwitch: Switch? = null
     protected var mStartDateView: ConstraintLayout? = null
@@ -70,6 +81,8 @@ class FieldDateRange : Field {
 
     var dateStartDisabled: Boolean = false
     var dateEndDisabled: Boolean = false
+
+    var type: Type = Type.DATE_RANGE
 
     /*
 * Constructors
@@ -131,6 +144,26 @@ class FieldDateRange : Field {
             if (!disabled) mSwitch!!.toggle()
         })
 
+        mContainer!!.setOnLongClickListener(OnLongClickListener {
+            if(!checked) return@OnLongClickListener false
+            val builder = AlertDialog.Builder(context)
+            builder.setTitle(title)
+            val dialogInputView = LayoutInflater.from(context).inflate(R.layout.dialog_daterange_type, null)
+
+            // Set the correct checked value in the dialog
+            val radioGroup: RadioGroup = dialogInputView.findViewById<RadioGroup>(R.id.select_daterange_type_radio_group)
+            when (type) {
+                Type.DATE_RANGE -> radioGroup.check(R.id.select_daterange_type_daterange)
+                Type.ONLY_START -> radioGroup.check(R.id.select_daterange_type_only_start)
+            }
+
+            builder.setView(dialogInputView)
+            builder.setPositiveButton(context.getString(R.string.dialog_action_ok), SetTypeDialogOKAction())
+            builder.setNegativeButton(context.getString(R.string.dialog_action_cancel), SetTypeDialogCancelAction())
+            builder.show()
+            true
+        })
+
         mStartDateView!!.setOnClickListener({ v ->
             showDatePicker(dateStartDisabled, dateStart, StartDateSetListener())
         })
@@ -149,7 +182,8 @@ class FieldDateRange : Field {
 
         mSwitch!!.setOnCheckedChangeListener({ v: CompoundButton, b: Boolean ->
             run {
-                mDatesContainerView!!.visibility = if (b) View.VISIBLE else GONE
+                mDatesContainerView?.visibility = if (b) View.VISIBLE else GONE
+                mEndDateView?.visibility = if(type == Type.DATE_RANGE) View.VISIBLE else GONE
             }
         })
     }
@@ -201,9 +235,9 @@ class FieldDateRange : Field {
 
     }
 
-/*
- * Utils
- */
+    /*
+     * Utils
+     */
 
     private fun showTimePicker(disabled: Boolean, defaultDate: Date?, timeSetListener: TimePickerDialog.OnTimeSetListener) {
         if (disabled) return
@@ -234,6 +268,32 @@ class FieldDateRange : Field {
         d.show()
     }
 
+    private inner class SetTypeDialogOKAction : DialogInterface.OnClickListener {
+        override fun onClick(p0: DialogInterface?, which: Int) {
+            val dialog = p0 as AlertDialog
+            val radioGroup: RadioGroup = dialog.findViewById(R.id.select_daterange_type_radio_group)
+            val checked = radioGroup.checkedRadioButtonId
+            when (checked) {
+                R.id.select_daterange_type_daterange -> {
+                    type = Type.DATE_RANGE
+                    mEndDateView?.visibility = View.VISIBLE
+                }
+                R.id.select_daterange_type_only_start -> {
+                    type = Type.ONLY_START
+                    mEndDateView?.visibility = GONE
+                }
+            }
+        }
+
+    }
+
+    private inner class SetTypeDialogCancelAction : DialogInterface.OnClickListener {
+        override fun onClick(dialog: DialogInterface?, which: Int) {
+            dialog?.dismiss()
+        }
+
+    }
+
     /*
      * Validation
      */
@@ -262,13 +322,14 @@ class FieldDateRange : Field {
      * Perform the validation of the field
      */
     fun validate(): Boolean {
+        if(!checked) return true
         var res = dateStart!!.before(dateEnd)
         if (minDate != null) res = res && minDate!!.before(dateStart)
         if (maxDate != null) res = res && dateEnd!!.before(maxDate)
 
-        if (res) setAlertState(true)
+        if (res) setAlertState(false)
         else {
-            setAlertState(false)
+            setAlertState(true)
             val t: Toast? = Toast.makeText(context, context.getString(R.string.date_not_valid), Toast.LENGTH_SHORT)
             t!!.show()
         }

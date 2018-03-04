@@ -7,5 +7,11 @@
 
     <string name="no_value">None</string>
     <string name="required_tooltip">Field \"%1$s\" is required</string>
+
+    <!-- FieldDateRange -->
     <string name="date_not_valid">Date not valid</string>
+    <string name="date_range">Date Range</string>
+    <string name="date_range_description">Define a date range with both start and ending dates</string>
+    <string name="date_only_start">Only Start Date</string>
+    <string name="date_only_start_description">Define only the start date, suitable for a delayed start</string>
 </resources>

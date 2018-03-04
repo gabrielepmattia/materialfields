@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingEnd="@dimen/dialogPreferredPadding"
+    android:paddingStart="@dimen/dialogPreferredPadding"
+    android:paddingTop="@dimen/dialogPreferredPadding">
+
+    <RadioGroup
+        android:id="@+id/select_daterange_type_radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkedButton="@id/select_daterange_type_daterange">
+
+        <RadioButton
+            android:id="@+id/select_daterange_type_daterange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/date_range" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="32dp"
+            android:text="@string/date_range_description" />
+
+        <RadioButton
+            android:id="@+id/select_daterange_type_only_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/date_only_start" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="32dp"
+            android:text="@string/date_only_start_description" />
+    </RadioGroup>
+
+</LinearLayout>

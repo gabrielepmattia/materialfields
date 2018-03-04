@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.text.Html
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.EditText
 import com.gabrielepmattia.materialfields.R
 
@@ -56,7 +57,7 @@ object Dialogs {
         val dialogInputView = inflater.inflate(R.layout.dialog_input_text, null)
 
         // Set the default text
-        if(defaultText != null) {
+        if (defaultText != null) {
             val editText: EditText = dialogInputView.findViewById(R.id.dialog_input_edittext)
             editText.setText(defaultText)
             editText.setSelection(defaultText.length)
@@ -65,6 +66,16 @@ object Dialogs {
         builder.setView(dialogInputView)
         builder.setPositiveButton(positiveLabel, positiveAction)
         builder.setNegativeButton(negativeLabel, negativeAction)
+        builder.show()
+    }
+
+    fun showDialogWithOptions(context: Context,
+                              title: String?,
+                              options: Array<CharSequence>,
+                              action: DialogInterface.OnClickListener) {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle(title)
+        builder.setItems(options, action)
         builder.show()
     }
 
