@@ -19,7 +19,7 @@
             android:layout_height="32dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="22dp"
-            android:src="@drawable/pencil"
+            android:src="@drawable/calendar_range"
             android:tint="@color/grey700"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -70,7 +70,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/pencil" />
+            app:srcCompat="@drawable/alert_circle" />
 
         <View
             android:id="@+id/field_bottom_line_separator"

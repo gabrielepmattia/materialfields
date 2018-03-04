@@ -96,9 +96,8 @@ class FieldInputText : FieldGeneric {
      */
     fun setRequired(required: Boolean) {
         if (required) {
-            this.setValidator(context.getString(R.string.required_tooltip, title), { s: String? ->
-                !(s == null || s.isEmpty())
-            })
-        } else this.removeValidator()
+            this.errorMessage = context.getString(R.string.required_tooltip, title)
+            this.validator = { s: String? -> !(s == null || s.isEmpty()) }
+        } else this.validator = null
     }
 }

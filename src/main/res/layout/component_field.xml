@@ -59,7 +59,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/pencil" />
+            app:srcCompat="@drawable/alert_circle" />
 
         <View
             android:id="@+id/field_bottom_line_separator"

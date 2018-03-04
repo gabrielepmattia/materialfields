@@ -20,9 +20,17 @@
         <attr name="checked" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="FieldDateRange">
+        <attr name="defaultStartDateUnixTimestamp" format="float" />
+        <attr name="defaultEndDateUnixTimestamp" format="float" />
+        <attr name="dateLimitRangeStartUnixTimestamp" format="float" />
+        <attr name="dateLimitRangeEndUnixTimestamp" format="float" />
+        <attr name="checked" />
+    </declare-styleable>
+
     <!-- Texts -->
     <declare-styleable name="Text">
-        <attr name="content"  />
+        <attr name="content" />
     </declare-styleable>
 
     <!-- Extra -->

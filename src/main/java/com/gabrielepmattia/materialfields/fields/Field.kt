@@ -16,6 +16,8 @@ import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import com.gabrielepmattia.materialfields.R
 import android.graphics.PorterDuff.Mode.SRC_IN
+import android.transition.Fade
+import android.transition.TransitionManager
 import android.util.TypedValue
 
 /**
@@ -53,7 +55,7 @@ open class Field : LinearLayout {
 
     open var disabled: Boolean = false
         set(b) {
-            if(b == field) return
+            if (b == field) return
             field = b
             if (b) {
                 mContainer?.setBackgroundColor(ContextCompat.getColor(context, R.color.grey300))
@@ -138,46 +140,21 @@ open class Field : LinearLayout {
      * Validation
      */
 
-    protected var validator: ((_: String?) -> Boolean)? = null
-    protected var errorMessage: String? = null
+    /**
+     * This is the error message to display when validation is performed and does not success
+     */
+    protected open var errorMessage: String? = null
 
     /**
-     * Set the [validator] for the current field. A validator is composed by an [errorMessage],
-     * to display when the validation is not passing and a validator, a function that takes as
-     * input a string and returns a Boolean, true or false according to the fact that validation
-     * passes or not
+     * Set the [state] of the alert for the field. This function enables the alert icon
      */
-    fun setValidator(errorMessage: String, validator: ((_: String?) -> Boolean)?) {
-        this.validator = validator
-        this.errorMessage = errorMessage
-    }
+    fun setAlertState(state: Boolean) {
+        val t = Fade()
+        t.duration = 300
+        TransitionManager.beginDelayedTransition(this, t)
 
-    /**
-     * Remove the current validator, if any
-     */
-    fun removeValidator() {
-        this.validator = null
-        this.errorMessage = null
-    }
-
-    /**
-     * Validate the field by calling the set validator
-     *
-     * @return Response of validation
-     */
-    fun validate(): Boolean {
-        if (validator == null) {
-            Log.w(TAG, "No validator set! Validation returns always true")
-            return true
-        }
-        val res = validator!!(value)
-        if (res) mAlertDrawableView!!.visibility = View.GONE
-        else {
-            mAlertDrawableView!!.visibility = View.VISIBLE
-            val t: Toast? = Toast.makeText(context, errorMessage, LENGTH_SHORT)
-            t!!.show()
-        }
-        return res
+        if (state) mAlertDrawableView!!.visibility = View.VISIBLE
+        else mAlertDrawableView!!.visibility = View.GONE
     }
 
     companion object {

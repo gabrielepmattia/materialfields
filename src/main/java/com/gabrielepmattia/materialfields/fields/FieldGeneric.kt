@@ -6,9 +6,11 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
 import com.gabrielepmattia.materialfields.R
 
 /**
@@ -32,7 +34,7 @@ open class FieldGeneric : Field {
 
     override var disabled: Boolean
         set(b) {
-            if(b == disabled) return
+            if (b == disabled) return
             super.disabled = b
             if (b) mDrawableView?.setColorFilter(ContextCompat.getColor(context, R.color.grey500), PorterDuff.Mode.SRC_IN)
             else mDrawableView?.setColorFilter(ContextCompat.getColor(context, R.color.grey700), PorterDuff.Mode.SRC_IN)
@@ -76,6 +78,36 @@ open class FieldGeneric : Field {
 
     override fun onFinishInflate() {
         super.onFinishInflate()
+    }
+
+    /*
+     * Validation
+     */
+
+    /**
+     * For a generic field a validator is a function that takes as input a string a returns a boolean
+     * whether the validation passed or not. Remember to set the error message when setting a validator.
+     */
+    open protected var validator: ((_: String?) -> Boolean)? = null
+
+    /**
+     * Validate the field by calling the set validator
+     *
+     * @return Response of validation
+     */
+    fun validate(): Boolean {
+        if (validator == null) {
+            Log.w(TAG, "No validator set! Validation returns always true")
+            return true
+        }
+        val res = validator!!(value)
+        setAlertState(!res)
+        // show a toast when validation does not succeed
+        if (!res) {
+            val t: Toast? = Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT)
+            t!!.show()
+        }
+        return res
     }
 
 
