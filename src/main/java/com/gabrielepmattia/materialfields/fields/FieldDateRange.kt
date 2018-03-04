@@ -58,13 +58,14 @@ class FieldDateRange : Field {
             mEndDateTime!!.text = timeFormat.format(d)
         }
 
-    var checked: Boolean = false
+    var checked: Boolean
         set(b) {
-            if (b == field) return
-            field = b
             mSwitch!!.isChecked = b
             if (b) mDatesContainerView!!.visibility = View.VISIBLE
             else mDatesContainerView!!.visibility = GONE
+        }
+        get() {
+            return mSwitch!!.isChecked
         }
 
     var dateStartDisabled: Boolean = false
@@ -148,7 +149,6 @@ class FieldDateRange : Field {
 
         mSwitch!!.setOnCheckedChangeListener({ v: CompoundButton, b: Boolean ->
             run {
-                TransitionManager.beginDelayedTransition(this)
                 mDatesContainerView!!.visibility = if (b) View.VISIBLE else GONE
             }
         })
