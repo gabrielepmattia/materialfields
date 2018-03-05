@@ -9,8 +9,10 @@ import android.widget.TextView
 import com.gabrielepmattia.materialfields.R
 
 /**
- * Created by gabry3795 on 03/03/2018.
- */
+* @Project aj-android
+* @Author gabry3795
+* @Date 03/03/2018 21:16
+*/
 open class Text : LinearLayout {
 
     var mTextView: TextView? = null

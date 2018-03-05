@@ -6,14 +6,15 @@ import android.content.DialogInterface
 import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.EditText
 import com.gabrielepmattia.materialfields.R
 import com.gabrielepmattia.materialfields.utils.Dialogs
 
 /**
- * Created by gabry3795 on 25/02/2018.
- */
+* @Project aj-android
+* @Author gabry3795
+* @Date 25/02/2018 21:16
+*/
 class FieldInputText : FieldGeneric {
 
     var changeListener: ((oldValue: String?, newValue: String?) -> Unit)? = null

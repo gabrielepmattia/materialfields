@@ -1,34 +1,29 @@
 package com.gabrielepmattia.materialfields.fields
 
 import android.app.AlertDialog
-import android.app.Dialog
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.res.TypedArray
 import android.support.constraint.ConstraintLayout
+import android.text.format.DateFormat
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import com.gabrielepmattia.materialfields.R
-import java.util.*
-import android.text.format.DateFormat.is24HourFormat
-import android.app.TimePickerDialog
-import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.FragmentActivity
-import android.text.format.DateFormat
-import android.app.DatePickerDialog
-import android.content.DialogInterface
-import android.transition.ChangeBounds
-import android.transition.TransitionManager
-import android.view.ViewGroup
+import android.view.View.OnLongClickListener
 import android.widget.*
-import com.gabrielepmattia.materialfields.utils.Dialogs
-import kotlin.math.min
+import com.gabrielepmattia.materialfields.R
+import com.gabrielepmattia.materialfields.fields.FieldDateRange.Type.DATE_RANGE
+import com.gabrielepmattia.materialfields.fields.FieldDateRange.Type.ONLY_START
+import java.util.*
 
 
 /**
- * Created by gabry3795 on 03/03/2018.
- */
+* @Project aj-android
+* @Author gabry3795
+* @Date 03/03/2018 21:16
+*/
 class FieldDateRange : Field {
 
     /**
@@ -99,7 +94,7 @@ class FieldDateRange : Field {
     /*
  * Helpers
  */
-    override fun initView(c: Context) {
+    override fun initView(context: Context) {
         val i: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         i.inflate(R.layout.component_field_daterange, this, true)
     }
@@ -140,7 +135,7 @@ class FieldDateRange : Field {
     override fun onFinishInflate() {
         super.onFinishInflate()
 
-        mContainer!!.setOnClickListener({ v: View ->
+        mContainer!!.setOnClickListener({ _: View ->
             if (!disabled) mSwitch!!.toggle()
         })
 
@@ -164,23 +159,23 @@ class FieldDateRange : Field {
             true
         })
 
-        mStartDateView!!.setOnClickListener({ v ->
+        mStartDateView!!.setOnClickListener({ _ ->
             showDatePicker(dateStartDisabled, dateStart, StartDateSetListener())
         })
 
-        mStartDateTime!!.setOnClickListener({ v ->
+        mStartDateTime!!.setOnClickListener({ _ ->
             showTimePicker(dateStartDisabled, dateStart, StartTimeSetListener())
         })
 
-        mEndDateView!!.setOnClickListener({ v ->
+        mEndDateView!!.setOnClickListener({ _ ->
             showDatePicker(dateEndDisabled, dateEnd, EndDateSetListener())
         })
 
-        mEndDateTime!!.setOnClickListener({ v ->
+        mEndDateTime!!.setOnClickListener({ _ ->
             showTimePicker(dateEndDisabled, dateEnd, EndTimeSetListener())
         })
 
-        mSwitch!!.setOnCheckedChangeListener({ v: CompoundButton, b: Boolean ->
+        mSwitch!!.setOnCheckedChangeListener({ _: CompoundButton, b: Boolean ->
             run {
                 mDatesContainerView?.visibility = if (b) View.VISIBLE else GONE
                 mEndDateView?.visibility = if(type == Type.DATE_RANGE) View.VISIBLE else GONE

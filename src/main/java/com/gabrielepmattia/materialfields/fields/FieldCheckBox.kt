@@ -2,20 +2,17 @@ package com.gabrielepmattia.materialfields.fields
 
 import android.content.Context
 import android.content.res.TypedArray
-import android.graphics.PorterDuff
-import android.support.constraint.ConstraintLayout
-import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.CheckBox
-import android.widget.LinearLayout
-import android.widget.TextView
 import com.gabrielepmattia.materialfields.R
 
 /**
- * Created by gabry3795 on 27/02/2018.
- */
+* @Project aj-android
+* @Author gabry3795
+* @Date 27/02/2018 21:16
+*/
 
 /**
  * Simple checkbox form control. You have to specify:
@@ -59,7 +56,7 @@ class FieldCheckBox : Field {
     /*
      * Helpers
      */
-    override fun initView(c: Context) {
+    override fun initView(context: Context) {
         val i: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         i.inflate(R.layout.component_field_checkbox, this, true)
     }
@@ -82,7 +79,7 @@ class FieldCheckBox : Field {
     override fun onFinishInflate() {
         super.onFinishInflate()
 
-        mContainer!!.setOnClickListener({ v: View ->
+        mContainer!!.setOnClickListener({ _: View ->
             if(!disabled) mCheckBox!!.toggle()
         })
     }

@@ -2,27 +2,23 @@ package com.gabrielepmattia.materialfields.fields
 
 import android.content.Context
 import android.content.res.TypedArray
-import android.graphics.drawable.Drawable
 import android.support.constraint.ConstraintLayout
 import android.support.v4.content.ContextCompat
+import android.transition.Fade
+import android.transition.TransitionManager
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
 import com.gabrielepmattia.materialfields.R
-import android.graphics.PorterDuff.Mode.SRC_IN
-import android.transition.Fade
-import android.transition.TransitionManager
-import android.util.TypedValue
 
 /**
- * Created by gabry3795 on 26/02/2018.
- */
+* @Project aj-android
+* @Author gabry3795
+* @Date 26/02/2018 21:16
+*/
 
 /**
  * Generic field control with title and subtitle. The subtitle represent the actual value of the field

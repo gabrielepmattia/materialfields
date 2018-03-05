@@ -1,16 +1,15 @@
 package com.gabrielepmattia.materialfields.texts
 
 import android.content.Context
-import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.LinearLayout
-import android.widget.TextView
 import com.gabrielepmattia.materialfields.R
 
 /**
- * Created by gabry3795 on 25/02/2018.
- */
+* @Project aj-android
+* @Author gabry3795
+* @Date 25/02/2018 21:16
+*/
 
 class Header : Text {
 

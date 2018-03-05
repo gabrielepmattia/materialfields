@@ -5,13 +5,14 @@ import android.content.Context
 import android.content.DialogInterface
 import android.text.Html
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.EditText
 import com.gabrielepmattia.materialfields.R
 
 /**
- * Created by gabry3795 on 26/02/2018.
- */
+* @Project aj-android
+* @Author gabry3795
+* @Date 26/02/2018 21:16
+*/
 
 object Dialogs {
     fun showDialog(context: Context, title: String, message: String) {
@@ -80,6 +81,7 @@ object Dialogs {
     }
 
 
+    @Suppress("DEPRECATION")
     fun setHtmlMessage(builder: AlertDialog.Builder, s: String) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             builder.setMessage(Html.fromHtml(s, Html.FROM_HTML_MODE_LEGACY))

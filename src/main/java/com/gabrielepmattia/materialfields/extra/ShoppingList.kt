@@ -1,3 +1,5 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package com.gabrielepmattia.materialfields.extra
 
 import android.app.AlertDialog
@@ -11,7 +13,6 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,8 +24,10 @@ import com.gabrielepmattia.materialfields.R
 import com.gabrielepmattia.materialfields.utils.Dialogs
 
 /**
- * Created by gabry3795 on 26/02/2018.
- */
+* @Project aj-android
+* @Author gabry3795
+* @Date 26/02/2018 21:16
+*/
 
 /**
  * Build a fully functional shopping list control. Properties of the view:
@@ -36,6 +39,7 @@ class ShoppingList : LinearLayout {
     private var mRecyclerViewAdapter: ShoppingListRecyclerAdapter? = null
     private var mRecyclerViewLayoutManager: LinearLayoutManager? = null
     private var mAddItemPlaceHolder: String? = null
+
     var items: ArrayList<String> = ArrayList()
 
     var disabledAdd: Boolean = false
@@ -162,7 +166,7 @@ class ShoppingList : LinearLayout {
                 mContainer!!.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
 
                 mIcon!!.setColorFilter(ContextCompat.getColor(context, R.color.grey700), PorterDuff.Mode.SRC_IN)
-                mIcon!!.setOnClickListener { v: View ->
+                mIcon!!.setOnClickListener { _: View ->
                     if (disabledEntries) return@setOnClickListener
                     Dialogs.showDialogWithPNButton(
                             itemView.context,
@@ -171,7 +175,7 @@ class ShoppingList : LinearLayout {
                             itemView.context.getString(R.string.dialog_action_ok),
                             itemView.context.getString(R.string.dialog_action_cancel),
                             DeleteItemOKAction(adapterPosition),
-                            AddItemCancelAction(adapterPosition)
+                            AddItemCancelAction()
                     )
                 }
                 mBottomLineSeparator!!.setBackgroundColor(ContextCompat.getColor(context, R.color.grey300))
@@ -225,7 +229,7 @@ class ShoppingList : LinearLayout {
             }
 
             // Set behavior for all elements
-            holder.itemView.setOnClickListener { v: View ->
+            holder.itemView.setOnClickListener { _: View ->
                 if ((holder.adapterPosition == itemCount - 1 && disabledAdd) ||
                         (holder.adapterPosition != itemCount - 1 && disabledEntries)) return@setOnClickListener
 
@@ -236,7 +240,7 @@ class ShoppingList : LinearLayout {
                         holder.itemView.context.getString(R.string.dialog_action_ok),
                         holder.itemView.context.getString(R.string.dialog_action_cancel),
                         AddItemOKAction(holder.adapterPosition),
-                        AddItemCancelAction(holder.adapterPosition),
+                        AddItemCancelAction(),
                         if (holder.adapterPosition < items.size) items[holder.adapterPosition] else ""
                 )
             }
@@ -268,7 +272,7 @@ class ShoppingList : LinearLayout {
             }
         }
 
-        inner class AddItemCancelAction(position: Int) : DialogInterface.OnClickListener {
+        inner class AddItemCancelAction() : DialogInterface.OnClickListener {
             override fun onClick(p0: DialogInterface?, p1: Int) {
                 p0!!.cancel()
             }

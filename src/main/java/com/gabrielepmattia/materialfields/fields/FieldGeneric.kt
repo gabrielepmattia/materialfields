@@ -14,8 +14,10 @@ import android.widget.Toast
 import com.gabrielepmattia.materialfields.R
 
 /**
- * Created by gabry3795 on 02/03/2018.
- */
+* @Project aj-android
+* @Author gabry3795
+* @Date 02/03/2018 21:16
+*/
 open class FieldGeneric : Field {
     protected var mDrawableView: ImageView? = null
 
