@@ -24,10 +24,10 @@ import com.gabrielepmattia.materialfields.R
 import com.gabrielepmattia.materialfields.utils.Dialogs
 
 /**
-* @Project aj-android
-* @Author gabry3795
-* @Date 26/02/2018 21:16
-*/
+ * @Project aj-android
+ * @Author gabry3795
+ * @Date 26/02/2018 21:16
+ */
 
 /**
  * Build a fully functional shopping list control. Properties of the view:
@@ -83,11 +83,11 @@ class ShoppingList : LinearLayout {
 
     private fun initView(context: Context) {
         val i: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        i.inflate(R.layout.component_field_shopping_list, this, true)
+        i.inflate(R.layout.component_field_list, this, true)
     }
 
     private fun initAttrs(attrs: AttributeSet) {
-        mRecyclerView = findViewById(R.id.field_shopping_list_recycler)
+        mRecyclerView = findViewById(R.id.field_list_recycler)
         mRecyclerViewAdapter = ShoppingListRecyclerAdapter()
         mRecyclerViewLayoutManager = LinearLayoutManager(context)
 
@@ -142,31 +142,24 @@ class ShoppingList : LinearLayout {
             }
 
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            var mIcon: ImageView? = null
-            var mContent: TextView? = null
-            var mContainer: ConstraintLayout? = null
-            var mBottomLineSeparator: View? = null
-
-            init {
-                mIcon = itemView.findViewById(R.id.field_shopping_list_item_image)
-                mContent = itemView.findViewById(R.id.field_shopping_list_item_content)
-                mContainer = itemView.findViewById(R.id.field_shopping_list_item_container)
-                mBottomLineSeparator = itemView.findViewById(R.id.field_shopping_list_item_bottom_line_separator)
-            }
+            var mIcon: ImageView = itemView.findViewById(R.id.field_list_item_image)
+            var mContent: TextView = itemView.findViewById(R.id.field_list_item_content)
+            var mContainer: ConstraintLayout = itemView.findViewById(R.id.field_list_item_container)
+            var mBottomLineSeparator: View = itemView.findViewById(R.id.field_list_item_bottom_line_separator)
 
             /**
              * Set the given view holder as a normal entry, with delete action
              */
             fun setAsNormalElement() {
                 // Standard entry
-                mContent!!.text = items[adapterPosition]
-                mIcon!!.setImageDrawable(itemView.context.getDrawable(R.drawable.close))
-                mContent!!.setTypeface(null, Typeface.NORMAL)
-                mContent!!.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
-                mContainer!!.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+                mContent.text = items[adapterPosition]
+                mIcon.setImageDrawable(itemView.context.getDrawable(R.drawable.close))
+                mContent.setTypeface(null, Typeface.NORMAL)
+                mContent.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
+                mContainer.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
 
-                mIcon!!.setColorFilter(ContextCompat.getColor(context, R.color.grey700), PorterDuff.Mode.SRC_IN)
-                mIcon!!.setOnClickListener { _: View ->
+                mIcon.setColorFilter(ContextCompat.getColor(context, R.color.grey700), PorterDuff.Mode.SRC_IN)
+                mIcon.setOnClickListener { _: View ->
                     if (disabledEntries) return@setOnClickListener
                     Dialogs.showDialogWithPNButton(
                             itemView.context,
@@ -185,14 +178,14 @@ class ShoppingList : LinearLayout {
              * Set the current view holder as the adding entry
              */
             fun setAsAddElement() {
-                mIcon!!.setImageDrawable(itemView.context.getDrawable(R.drawable.pencil))
-                mContent!!.text = mAddItemPlaceHolder
-                mContent!!.setTypeface(null, Typeface.ITALIC)
-                mContent!!.setTextColor(ContextCompat.getColor(itemView.context, R.color.grey600))
-                mContainer!!.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
-                mIcon!!.setColorFilter(ContextCompat.getColor(context, R.color.grey700), PorterDuff.Mode.SRC_IN)
-                mIcon!!.setOnClickListener(null)
-                mBottomLineSeparator!!.setBackgroundColor(ContextCompat.getColor(context, R.color.grey300))
+                mIcon.setImageDrawable(itemView.context.getDrawable(R.drawable.pencil))
+                mContent.text = mAddItemPlaceHolder
+                mContent.setTypeface(null, Typeface.ITALIC)
+                mContent.setTextColor(ContextCompat.getColor(itemView.context, R.color.grey600))
+                mContainer.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+                mIcon.setColorFilter(ContextCompat.getColor(context, R.color.grey700), PorterDuff.Mode.SRC_IN)
+                mIcon.setOnClickListener(null)
+                mBottomLineSeparator.setBackgroundColor(ContextCompat.getColor(context, R.color.grey300))
             }
 
             /**

@@ -7,9 +7,9 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/field_shopping_list_recycler"
+        android:id="@+id/field_list_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/component_field_shopping_list_item" />
+        tools:listitem="@layout/component_field_list_item" />
 
 </merge>

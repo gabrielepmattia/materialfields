@@ -40,4 +40,10 @@
         <attr name="disabledEntries" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="List">
+        <attr name="addItemPlaceHolder" required="true" />
+        <attr name="disabledAdd" />
+        <attr name="disabledEntries" />
+    </declare-styleable>
+
 </resources>

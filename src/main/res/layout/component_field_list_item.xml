@@ -51,6 +51,16 @@
                 android:textSize="@dimen/item_list_subtitle"
                 app:layout_constraintStart_toStartOf="parent" />
 
+            <TextView
+                android:id="@+id/field_list_item_subcontent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:text="FieldShoppingListItem"
+                android:textColor="@color/grey600"
+                android:textSize="@dimen/item_list_subsubtitle"
+                app:layout_constraintStart_toStartOf="parent" />
+
         </LinearLayout>
 
         <View

@@ -5,8 +5,11 @@ import android.content.Context
 import android.content.DialogInterface
 import android.text.Html
 import android.view.LayoutInflater
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import com.gabrielepmattia.materialfields.R
+
+
 
 /**
 * @Project aj-android
@@ -57,9 +60,9 @@ object Dialogs {
         builder.setTitle(title ?: Dialogs::class.java.simpleName)
         val dialogInputView = inflater.inflate(R.layout.dialog_input_text, null)
 
-        // Set the default text
+        // Set the default text to edittext
+        val editText: EditText = dialogInputView.findViewById(R.id.dialog_input_edittext)
         if (defaultText != null) {
-            val editText: EditText = dialogInputView.findViewById(R.id.dialog_input_edittext)
             editText.setText(defaultText)
             editText.setSelection(defaultText.length)
         }
@@ -68,6 +71,11 @@ object Dialogs {
         builder.setPositiveButton(positiveLabel, positiveAction)
         builder.setNegativeButton(negativeLabel, negativeAction)
         builder.show()
+
+        // autofocus to edittext
+        editText.requestFocus()
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(editText, InputMethodManager.SHOW_FORCED)
     }
 
     fun showDialogWithOptions(context: Context,
