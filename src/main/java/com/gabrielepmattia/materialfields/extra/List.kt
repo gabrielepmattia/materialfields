@@ -162,7 +162,7 @@ class List : LinearLayout {
                 mSubcontent.text = items!![adapterPosition].second
                 mSubcontent.visibility = View.VISIBLE
                 mIcon.setImageDrawable(context.getDrawable(R.drawable.close))
-                mIcon.setOnClickListener({ v ->
+                mIcon.setOnClickListener({ _ ->
                     items!!.removeAt(adapterPosition)
                     notifyDataSetChanged()
                 })

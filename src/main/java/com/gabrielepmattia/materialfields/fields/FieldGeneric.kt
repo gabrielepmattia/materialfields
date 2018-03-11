@@ -26,7 +26,6 @@ open class FieldGeneric : Field {
             if (d == null) {
                 mDrawableView!!.visibility = LinearLayout.GONE
             } else {
-                mSubtitleView!!.visibility = LinearLayout.VISIBLE
                 mDrawableView!!.setImageDrawable(d)
             }
         }
@@ -47,8 +46,8 @@ open class FieldGeneric : Field {
 
 
     /*
- * Constructors
- */
+     * Constructors
+     */
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)

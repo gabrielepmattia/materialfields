@@ -15,10 +15,10 @@ import android.widget.TextView
 import com.gabrielepmattia.materialfields.R
 
 /**
-* @Project aj-android
-* @Author gabry3795
-* @Date 26/02/2018 21:16
-*/
+ * @Project aj-android
+ * @Author gabry3795
+ * @Date 26/02/2018 21:16
+ */
 
 /**
  * Generic field control with title and subtitle. The subtitle represent the actual value of the field
@@ -30,6 +30,9 @@ open class Field : LinearLayout {
     protected var mAlertDrawableView: ImageView? = null
     protected var mBottomLineSeparator: View? = null
 
+    /**
+     * The title of the field
+     */
     var title: String?
         set(s) {
             if (s == null) {
@@ -42,6 +45,9 @@ open class Field : LinearLayout {
             return mTitleView!!.text.toString()
         }
 
+    /**
+     * The value of the field (the subtitle)
+     */
     var value: String? = ""
         set(s) {
             if (s == null || s.isEmpty()) mSubtitleView!!.text = context.getString(R.string.no_value)
@@ -49,6 +55,9 @@ open class Field : LinearLayout {
             field = s
         }
 
+    /**
+     * Set decoration and interaction disabled of the field
+     */
     open var disabled: Boolean = false
         set(b) {
             if (b == field) return
@@ -69,6 +78,7 @@ open class Field : LinearLayout {
                 mBottomLineSeparator?.setBackgroundColor(ContextCompat.getColor(context, R.color.grey300))
             }
         }
+
 
     /*
  * Constructors

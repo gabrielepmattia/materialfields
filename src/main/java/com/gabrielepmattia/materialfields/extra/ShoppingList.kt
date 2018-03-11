@@ -164,14 +164,14 @@ class ShoppingList : LinearLayout {
                     Dialogs.showDialogWithPNButton(
                             itemView.context,
                             itemView.context.getString(R.string.dialog_delete_header),
-                            itemView.context.getString(R.string.dialog_delete_description, mContent!!.text),
+                            itemView.context.getString(R.string.dialog_delete_description, mContent.text),
                             itemView.context.getString(R.string.dialog_action_ok),
                             itemView.context.getString(R.string.dialog_action_cancel),
                             DeleteItemOKAction(adapterPosition),
                             AddItemCancelAction()
                     )
                 }
-                mBottomLineSeparator!!.setBackgroundColor(ContextCompat.getColor(context, R.color.grey300))
+                mBottomLineSeparator.setBackgroundColor(ContextCompat.getColor(context, R.color.grey300))
             }
 
             /**
@@ -192,10 +192,10 @@ class ShoppingList : LinearLayout {
              * Set the current element as disabled
              */
             fun setDisabledElement() {
-                mContainer!!.setBackgroundColor(ContextCompat.getColor(context, R.color.grey300))
-                mContent!!.setTextColor(ContextCompat.getColor(itemView.context, R.color.grey500))
-                mIcon!!.setColorFilter(ContextCompat.getColor(context, R.color.grey500), PorterDuff.Mode.SRC_IN)
-                mBottomLineSeparator!!.setBackgroundColor(ContextCompat.getColor(context, R.color.grey400))
+                mContainer.setBackgroundColor(ContextCompat.getColor(context, R.color.grey300))
+                mContent.setTextColor(ContextCompat.getColor(itemView.context, R.color.grey500))
+                mIcon.setColorFilter(ContextCompat.getColor(context, R.color.grey500), PorterDuff.Mode.SRC_IN)
+                mBottomLineSeparator.setBackgroundColor(ContextCompat.getColor(context, R.color.grey400))
             }
 
 

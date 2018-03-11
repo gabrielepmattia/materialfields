@@ -28,6 +28,12 @@
         <attr name="checked" />
     </declare-styleable>
 
+    <declare-styleable name="FieldAction">
+        <attr name="title" />
+        <attr name="drawable" />
+        <attr name="disabled" />
+    </declare-styleable>
+
     <!-- Texts -->
     <declare-styleable name="Text">
         <attr name="content" />
