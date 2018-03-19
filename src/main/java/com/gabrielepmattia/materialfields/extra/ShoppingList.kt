@@ -197,12 +197,10 @@ class ShoppingList : LinearLayout {
                 mIcon.setColorFilter(ContextCompat.getColor(context, R.color.grey500), PorterDuff.Mode.SRC_IN)
                 mBottomLineSeparator.setBackgroundColor(ContextCompat.getColor(context, R.color.grey400))
             }
-
-
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-            val itemView = LayoutInflater.from(parent!!.context)
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val itemView = LayoutInflater.from(parent.context)
                     .inflate(R.layout.component_field_shopping_list_item, parent, false)
             return ViewHolder(itemView)
         }
