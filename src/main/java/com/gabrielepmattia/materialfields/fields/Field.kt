@@ -48,9 +48,9 @@ open class Field : LinearLayout {
     /**
      * The value of the field (the subtitle)
      */
-    var value: String? = ""
+    var value: String = ""
         set(s) {
-            if (s == null || s.isEmpty()) mSubtitleView!!.text = context.getString(R.string.no_value)
+            if (s.isEmpty()) mSubtitleView!!.text = context.getString(R.string.no_value)
             else mSubtitleView!!.text = s
             field = s
         }
@@ -129,7 +129,7 @@ open class Field : LinearLayout {
 
         // set attrs
         if (tempTitle != null) title = tempTitle
-        value = tempSubtitle
+        value = tempSubtitle ?: ""
         disabled = tempDisabled
     }
 
