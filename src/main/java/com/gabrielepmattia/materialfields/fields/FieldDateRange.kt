@@ -20,10 +20,10 @@ import java.util.*
 
 
 /**
-* @Project aj-android
-* @Author gabry3795
-* @Date 03/03/2018 21:16
-*/
+ * @Project aj-android
+ * @Author gabry3795
+ * @Date 03/03/2018 21:16
+ */
 class FieldDateRange : Field {
 
     /**
@@ -140,7 +140,7 @@ class FieldDateRange : Field {
         })
 
         mContainer!!.setOnLongClickListener(OnLongClickListener {
-            if(!checked) return@OnLongClickListener false
+            if (!checked) return@OnLongClickListener false
             val builder = AlertDialog.Builder(context)
             builder.setTitle(title)
             val dialogInputView = LayoutInflater.from(context).inflate(R.layout.dialog_daterange_type, null)
@@ -178,7 +178,7 @@ class FieldDateRange : Field {
         mSwitch!!.setOnCheckedChangeListener({ _: CompoundButton, b: Boolean ->
             run {
                 mDatesContainerView?.visibility = if (b) View.VISIBLE else GONE
-                mEndDateView?.visibility = if(type == Type.DATE_RANGE) View.VISIBLE else GONE
+                mEndDateView?.visibility = if (type == Type.DATE_RANGE) View.VISIBLE else GONE
             }
         })
     }
@@ -317,8 +317,9 @@ class FieldDateRange : Field {
      * Perform the validation of the field
      */
     fun validate(): Boolean {
-        if(!checked) return true
-        var res = dateStart!!.before(dateEnd)
+        if (!checked) return true
+        var res = true
+        if (type == DATE_RANGE) res = dateStart!!.before(dateEnd)
         if (minDate != null) res = res && minDate!!.before(dateStart)
         if (maxDate != null) res = res && dateEnd!!.before(maxDate)
 
