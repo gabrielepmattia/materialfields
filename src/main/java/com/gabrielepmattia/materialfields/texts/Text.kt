@@ -44,7 +44,7 @@ open class Text : LinearLayout {
         this.initAttrs(attrs)
     }
 
-    open protected fun initView(context: Context) {
+    protected open fun initView(context: Context) {
         val i: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         i.inflate(R.layout.component_text, this, true)
     }
@@ -53,7 +53,7 @@ open class Text : LinearLayout {
         mTextView = findViewById(R.id.text_text)
 
         val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.Text) as TypedArray
-        text = t.getString(R.styleable.Text_content)
+        text = t.getString(R.styleable.Text_text)
         t.recycle()
     }
 }

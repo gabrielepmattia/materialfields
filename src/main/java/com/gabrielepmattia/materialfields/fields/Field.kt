@@ -81,8 +81,8 @@ open class Field : LinearLayout {
 
 
     /*
- * Constructors
- */
+     * Constructors
+     */
 
     constructor(context: Context) : super(context) {
         this.initView(context)

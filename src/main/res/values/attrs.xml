@@ -36,7 +36,11 @@
 
     <!-- Texts -->
     <declare-styleable name="Text">
-        <attr name="content" />
+        <attr name="text" />
+    </declare-styleable>
+
+    <declare-styleable name="Header">
+        <attr name="text" />
     </declare-styleable>
 
     <!-- Extra -->
