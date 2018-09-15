@@ -53,7 +53,7 @@ open class Text : LinearLayout {
         mTextView = findViewById(R.id.text_text)
 
         val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.Text) as TypedArray
-        text = t.getString(R.styleable.Text_text)
+        text = t.getString(R.styleable.Text_text)?: ""
         t.recycle()
     }
 }

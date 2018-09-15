@@ -254,10 +254,10 @@ class ShoppingList : LinearLayout {
                 val editText: EditText = alertDialog.findViewById(R.id.dialog_input_edittext)
                 if (mPosition > items.size - 1) {
                     items.add(editText.text.toString())
-                    mRecyclerView!!.adapter.notifyItemInserted(mPosition)
+                    mRecyclerView!!.adapter?.notifyItemInserted(mPosition)
                 } else {
                     items[mPosition] = editText.text.toString()
-                    mRecyclerView!!.adapter.notifyItemChanged(mPosition)
+                    mRecyclerView!!.adapter?.notifyItemChanged(mPosition)
                 }
 
             }
@@ -280,7 +280,7 @@ class ShoppingList : LinearLayout {
             override fun onClick(p0: DialogInterface?, p1: Int) {
                 items.removeAt(mPosition)
                 //mRecyclerView!!.adapter.notifyItemRemoved(mPosition)
-                mRecyclerView!!.adapter.notifyDataSetChanged()
+                mRecyclerView!!.adapter?.notifyDataSetChanged()
             }
         }
 
