@@ -1,11 +1,12 @@
 package com.gabrielepmattia.materialfields.utils
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.text.Html
 import android.view.LayoutInflater
-import android.view.inputmethod.InputMethodManager
+import android.view.WindowManager
 import android.widget.EditText
 import com.gabrielepmattia.materialfields.R
 
@@ -47,6 +48,7 @@ object Dialogs {
                 .show()
     }
 
+    @SuppressLint("InflateParams")
     fun showDialogWithInputAndPNButtons(context: Context,
                                         inflater: LayoutInflater,
                                         title: String?,
@@ -70,12 +72,10 @@ object Dialogs {
         builder.setView(dialogInputView)
         builder.setPositiveButton(positiveLabel, positiveAction)
         builder.setNegativeButton(negativeLabel, negativeAction)
-        builder.show()
-
-        // autofocus to edittext
-        editText.requestFocus()
-        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(editText, InputMethodManager.SHOW_FORCED)
+        val dialog = builder.create()
+        // force keyboard to be displayed
+        dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+        dialog.show()
     }
 
     fun showDialogWithOptions(context: Context,

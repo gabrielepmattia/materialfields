@@ -11,10 +11,10 @@ import com.gabrielepmattia.materialfields.R
 import com.gabrielepmattia.materialfields.utils.Dialogs
 
 /**
-* @Project aj-android
-* @Author gabry3795
-* @Date 25/02/2018 21:16
-*/
+ * @Project aj-android
+ * @Author gabry3795
+ * @Date 25/02/2018 21:16
+ */
 class FieldInputText : FieldGeneric {
 
     var changeListener: ((oldValue: String?, newValue: String?) -> Unit)? = null
@@ -52,13 +52,13 @@ class FieldInputText : FieldGeneric {
     }
 
     private fun initOnClickListener() {
-        setOnClickListener({ _ ->
+        setOnClickListener {
             Dialogs.showDialogWithInputAndPNButtons(context,
                     LayoutInflater.from(context),
                     title,
                     context.getString(R.string.dialog_action_ok),
                     context.getString(R.string.dialog_action_cancel), PositiveAction(), NegativeAction(), value)
-        })
+        }
     }
 
     /*
@@ -67,8 +67,8 @@ class FieldInputText : FieldGeneric {
 
     inner class PositiveAction : DialogInterface.OnClickListener {
         override fun onClick(dialogInterface: DialogInterface?, p1: Int) {
-            var dialogView: AlertDialog = dialogInterface as AlertDialog
-            var newText = dialogView.findViewById<EditText>(R.id.dialog_input_edittext).text
+            val dialogView: AlertDialog = dialogInterface as AlertDialog
+            val newText = dialogView.findViewById<EditText>(R.id.dialog_input_edittext).text
             if (!newText.equals(value)) {
                 if (changeListener != null) changeListener!!(value, newText.toString())
                 value = newText.toString()
