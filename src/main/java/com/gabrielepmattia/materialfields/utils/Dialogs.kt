@@ -74,6 +74,7 @@ object Dialogs {
         builder.setNegativeButton(negativeLabel, negativeAction)
         val dialog = builder.create()
         // force keyboard to be displayed
+        editText.requestFocus()
         dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         dialog.show()
     }
