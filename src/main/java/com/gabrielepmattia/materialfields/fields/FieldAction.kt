@@ -92,17 +92,17 @@ open class FieldAction : LinearLayout {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         this.initView(context)
-        this.initAttrs(attrs)
+        this.initAttrs(context, attrs)
     }
 
     constructor(context: Context, attrs: AttributeSet, defAttr: Int) : super(context, attrs, defAttr) {
         this.initView(context)
-        this.initAttrs(attrs)
+        this.initAttrs(context, attrs)
     }
 
     constructor(context: Context, attrs: AttributeSet, defAttr: Int, defRes: Int) : super(context, attrs, defAttr, defRes) {
         this.initView(context)
-        this.initAttrs(attrs)
+        this.initAttrs(context, attrs)
     }
 
     open fun initView(context: Context) {
@@ -110,7 +110,7 @@ open class FieldAction : LinearLayout {
         i.inflate(R.layout.component_field_action, this, true)
     }
 
-    protected open fun initAttrs(attrs: AttributeSet) {
+    protected open fun initAttrs(context: Context, attrs: AttributeSet) {
         mTitleView = findViewById(R.id.field_title)
         mContainer = findViewById(R.id.field_container)
         mBottomLineSeparator = findViewById(R.id.field_bottom_line_separator)
@@ -123,12 +123,16 @@ open class FieldAction : LinearLayout {
         val tempTitle = t.getString(R.styleable.FieldAction_title)
         val tempDisabled = t.getBoolean(R.styleable.FieldAction_disabled, false)
         val tempDrawable = t.getDrawable(R.styleable.FieldAction_drawable)
+        val tempDrawableTint = t.getColor((R.styleable.FieldAction_drawableTint), ContextCompat.getColor(context, R.color.grey700))
         t.recycle()
 
         // set attrs
         if (tempTitle != null) title = tempTitle
         disabled = tempDisabled
-        drawable = tempDrawable
+        if (tempDrawable != null) {
+            tempDrawable.setColorFilter(tempDrawableTint, PorterDuff.Mode.SRC_ATOP)
+            drawable = tempDrawable
+        }
     }
 
     override fun setOnClickListener(l: OnClickListener?) {

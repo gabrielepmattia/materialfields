@@ -32,11 +32,13 @@
         <attr name="title" />
         <attr name="drawable" />
         <attr name="disabled" />
+        <attr name="drawableTint" format="color" />
     </declare-styleable>
 
     <!-- Texts -->
     <declare-styleable name="Text">
         <attr name="text" />
+        <attr name="textAlignment" format="string" />
     </declare-styleable>
 
     <declare-styleable name="Header">

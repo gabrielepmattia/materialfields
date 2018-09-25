@@ -6,9 +6,10 @@
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
-    <dimen name="item_list_title">18sp</dimen>
-    <dimen name="item_list_subtitle">16sp</dimen>
+    <dimen name="item_list_title">16sp</dimen>
+    <dimen name="item_list_subtitle">14sp</dimen>
     <dimen name="item_list_subsubtitle">12sp</dimen>
+    <dimen name="item_list_overline">10sp</dimen>
 
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>

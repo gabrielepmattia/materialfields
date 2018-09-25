@@ -4,15 +4,16 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.gabrielepmattia.materialfields.R
 
 /**
-* @Project aj-android
-* @Author gabry3795
-* @Date 03/03/2018 21:16
-*/
+ * @Project aj-android
+ * @Author gabry3795
+ * @Date 03/03/2018 21:16
+ */
 open class Text : LinearLayout {
 
     var mTextView: TextView? = null
@@ -53,7 +54,17 @@ open class Text : LinearLayout {
         mTextView = findViewById(R.id.text_text)
 
         val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.Text) as TypedArray
-        text = t.getString(R.styleable.Text_text)?: ""
+        val tempText = t.getString(R.styleable.Text_text) ?: ""
+        val tempTextAlignement = t.getString(R.styleable.Text_textAlignment) ?: ""
+        //val tempTextSize = t.getDimension(R.styleable.Text_textSize, )
         t.recycle()
+
+        // set attributes
+        text = tempText
+        //mTextView?.textSize = tempTextSize
+        mTextView?.textAlignment = when (tempTextAlignement) {
+            "center" -> View.TEXT_ALIGNMENT_CENTER
+            else -> View.TEXT_ALIGNMENT_TEXT_START
+        }
     }
 }
