@@ -60,6 +60,12 @@ def getVersionName() throws GradleException {
     else return materialfieldsVersionName + '-beta'
 }
 
+def getVcsTag() throws GradleException {
+    if (project.hasProperty('publishTrack') && publishTrack == 'production')
+        return 'v' + materialfieldsVersionName
+    else return 'v' + materialfieldsVersionName + 'b'
+}
+
 bintray {
     user bintrayUser
     key bintrayApiKey
@@ -76,7 +82,7 @@ bintray {
         publicDownloadNumbers = true
         version {
             name = getVersionName()
-            vcsTag = 'v' + getVersionName()
+            vcsTag = getVcsTag()
             released = new Date()
         }
     }
