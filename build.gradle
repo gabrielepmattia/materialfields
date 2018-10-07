@@ -76,7 +76,7 @@ bintray {
         publicDownloadNumbers = true
         version {
             name = getVersionName()
-            vcsTag = getVersionName()
+            vcsTag = 'v' + getVersionName()
             released = new Date()
         }
     }
