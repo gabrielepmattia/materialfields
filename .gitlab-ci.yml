@@ -12,7 +12,6 @@ before_script:
   # Init vm build configuration
   - export GRADLE_USER_HOME=`pwd`/.gradle
   - mkdir -p $GRADLE_USER_HOME
-  - gradle wrapper
   - chmod +x ./gradlew
   - echo "bintrayUser=" $BINTRAY_USER >> $GRADLE_USER_HOME/gradle.properties
   - echo "bintrayApiKey=" $BINTRAY_KEY >> $GRADLE_USER_HOME/gradle.properties

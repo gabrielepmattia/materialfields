@@ -131,7 +131,7 @@ The xml file for the form shown in the video is the following
 
 # Changelog
 
-For the changelog please see the [Tags](/tags) section of this repository
+For the changelog please see the [Tags](https://gitlab.com/gabrielepmattia/materialfields) section of this repository
 
 # Contributors
 
