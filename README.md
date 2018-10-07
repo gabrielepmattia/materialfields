@@ -1,6 +1,6 @@
 # Materialfields
 
-[![production pipeline status](https://gitlab.com/gabrielepmattia/materialfields/badges/production/pipeline.svg)](https://gitlab.com/gabrielepmattia/materialfields/commits/production) [![staging pipeline status](https://gitlab.com/gabrielepmattia/materialfields/badges/staging/pipeline.svg)](https://gitlab.com/gabrielepmattia/materialfields/commits/staging)
+[![Download](https://api.bintray.com/packages/gabrielepmattia/maven/materialfields/images/download.svg) ](https://bintray.com/gabrielepmattia/maven/materialfields/_latestVersion) [![production pipeline status](https://gitlab.com/gabrielepmattia/materialfields/badges/production/pipeline.svg)](https://gitlab.com/gabrielepmattia/materialfields/commits/production) [![staging pipeline status](https://gitlab.com/gabrielepmattia/materialfields/badges/staging/pipeline.svg)](https://gitlab.com/gabrielepmattia/materialfields/commits/staging)
 
 _Create awesome forms in material design style_
 
@@ -21,18 +21,26 @@ The following fields are included:
 
 # Installation
 
-Add to your `build.gradle` file
+Add to your project `build.gradle` file
 
 ```groovy
-repositories {
-    maven { url "https://dl.bintray.com/gabrielepmattia/maven" }
+allprojects {
+    repositories {
+        // ...
+        maven { url "https://dl.bintray.com/gabrielepmattia/maven" }
+        // ...
+    }
 }
 ```
 
-And add the library as dependency
+And in the app `build.gradle`
 
 ```groovy
-compile 'com.gabrielepmattia.me:materialfields:0.0.1-beta'
+dependencies {
+    // ...
+    implementation 'com.gabrielepmattia.me:materialfields:0.0.1-beta'
+    // ...
+}
 ```
 
 # Examples
