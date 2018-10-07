@@ -1,6 +1,8 @@
 # Materialfields
 
+[![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
 [![Download](https://api.bintray.com/packages/gabrielepmattia/maven/materialfields/images/download.svg) ](https://bintray.com/gabrielepmattia/maven/materialfields/_latestVersion) [![production pipeline status](https://gitlab.com/gabrielepmattia/materialfields/badges/production/pipeline.svg)](https://gitlab.com/gabrielepmattia/materialfields/commits/production) [![staging pipeline status](https://gitlab.com/gabrielepmattia/materialfields/badges/staging/pipeline.svg)](https://gitlab.com/gabrielepmattia/materialfields/commits/staging)
+[![codebeat badge](https://codebeat.co/badges/44fd6cea-b150-428d-b651-9ce5d9d4816e)](https://codebeat.co/projects/gitlab-com-gabrielepmattia-materialfields-staging)
 
 _Create awesome forms in material design style_
 
