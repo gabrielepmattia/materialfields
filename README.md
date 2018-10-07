@@ -39,7 +39,7 @@ compile 'com.gabrielepmattia.me:materialfields:0.0.1-beta'
 
 Here's a video showing the most relevant features of the library:
 
-<div style="text-align:center"><img src="https://i.imgur.com/WzW2M0D.gif" alt="video" style="height:700px;"/></div>
+<div style="text-align:center"><img src="https://i.imgur.com/WzW2M0D.gif" alt="video" height=700/></div>
 
 The xml file for the form shown in the video is the following
 
