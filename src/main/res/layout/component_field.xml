@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:text="Field"
-                android:textColor="@color/black"
+                android:textColor="@color/item_list_title_color"
                 android:textSize="@dimen/item_list_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -44,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="0dp"
                 android:text="Value"
+                android:textColor="@color/item_list_subtitle_color"
                 android:textSize="@dimen/item_list_subtitle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/field_title" />

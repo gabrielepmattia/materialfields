@@ -1,4 +1,5 @@
 {
   "licenser.license": "LGPLv3",
-  "licenser.author": "Gabriele Proietti Mattia <gabry.gabry@hotmail.it> and contributors"
+  "licenser.author": "Gabriele Proietti Mattia <gabry.gabry@hotmail.it> and contributors (see the README.md)",
+  "java.configuration.updateBuildConfiguration": "disabled"
 }

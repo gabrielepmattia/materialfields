@@ -14,31 +14,34 @@
         android:layout_height="wrap_content"
         android:background="@color/white">
 
-        <ImageView
-            android:id="@+id/field_list_item_image"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginBottom="0dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="0dp"
-            android:src="@drawable/close"
-            android:tint="@color/grey700"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <LinearLayout
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:gravity="center"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/close" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/field_list_item_image"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/close"
+                android:tint="@color/grey600"
+                app:srcCompat="@drawable/close" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="72dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/field_list_item_image"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -47,8 +50,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="0dp"
                 android:text="FieldShoppingListItem"
-                android:textColor="@color/black"
-                android:textSize="@dimen/item_list_subtitle"
+                android:textColor="@color/item_list_title_color"
+                android:textSize="@dimen/item_list_title"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
@@ -57,8 +60,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="0dp"
                 android:text="FieldShoppingListItem"
-                android:textColor="@color/grey600"
-                android:textSize="@dimen/item_list_subsubtitle"
+                android:textColor="@color/item_list_subtitle_color"
+                android:textSize="@dimen/item_list_subtitle"
                 app:layout_constraintStart_toStartOf="parent" />
 
         </LinearLayout>

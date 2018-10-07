@@ -27,4 +27,9 @@
     <color name="redA200">#FF5252</color>
     <color name="redA400">#FF1744</color>
     <color name="redA700">#D50000</color>
+
+    <!-- text -->
+    <color name="item_list_title_color">#de000000</color>
+    <color name="item_list_subtitle_color">#99000000</color>
+    <color name="item_list_subsubtitle_color">#99000000</color>
 </resources>

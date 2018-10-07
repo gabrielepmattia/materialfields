@@ -1,0 +1,63 @@
+image: gabry3795/docker-android-alpine
+
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+before_script:
+  # Init vm build configuration
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+  - mkdir -p $GRADLE_USER_HOME
+  - chmod +x ./gradlew
+  - echo "bintrayUser=" $BINTRAY_USER >> $GRADLE_USER_HOME/gradle.properties
+  - echo "bintrayApiKey=" $BINTRAY_KEY >> $GRADLE_USER_HOME/gradle.properties
+
+cache:
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+
+# --------------- Build -------------- #
+build-beta:
+  stage: build
+  script:
+    - ./gradlew assembleBetaDebug
+    - ./gradlew assembleBetaRelease
+  only:
+    - staging
+  artifacts:
+    paths:
+      - build/outputs/
+    expire_in: 1 week
+
+# --------------- Deploy -------------- #
+deploy-beta:
+  stage: deploy
+  script:
+    - ./gradlew bintrayUpload '-PpublishTrack=beta'
+  only:
+    - /(.*)[^b]b$/
+  except:
+    - branches
+
+deploy-production:
+  stage: deploy
+  script:
+    - ./gradlew bintrayUpload '-PpublishTrack=production'
+  only:
+    - tags
+  except:
+    - /(.*)[^b]b$/
+    - branches
+
+## To deploy
+# ./gradlew updateVersion
+# git commit -am "Increased version"
+# git tag -a 1.1.1b -m "asd" [if beta]
+# git tag -a 1.1.1 -m "asd" [if not beta]
+# git push
+# git push --tags

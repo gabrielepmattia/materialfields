@@ -1,0 +1,32 @@
+def buildVersionCode() {
+    // Increments the versionName
+    def (String major, String minor, String patch) = materialfieldsVersionName.toLowerCase().replaceAll('-', '').tokenize('.')
+    Integer patch_int = patch.toInteger() + 1
+    materialfieldsVersionName = major + "." + minor + "." + patch_int
+
+    // Increments the versionCode
+    materialfieldsVersionCode = (materialfieldsVersionCode.toInteger() + 1).toString()
+
+    // Write settings
+    def versionPropsFile = file("./gradle.properties")
+    Properties versionProps = new Properties()
+    versionProps.load(new FileInputStream(versionPropsFile))
+    versionProps["materialfieldsVersionName"] = materialfieldsVersionName
+    versionProps["materialfieldsVersionCode"] = materialfieldsVersionCode
+    versionProps.store(versionPropsFile.newWriter(), null)
+}
+
+task updateVersion {
+    doLast {
+        println '\n################## Version Update ##################'
+        println '# From version:\t ' + materialfieldsVersionName + ' (' + materialfieldsVersionCode + ')'
+        buildVersionCode()
+        println '# To version:\t ' + materialfieldsVersionName + ' (' + materialfieldsVersionCode + ')'
+        println '####################################################'
+    }
+}
+
+configure(updateVersion) {
+    group = 'versioning'
+    description = 'Manage your project version'
+}

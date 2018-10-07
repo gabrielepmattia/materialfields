@@ -1,6 +1,6 @@
 // Library top buildscript
 buildscript {
-    ext.kotlin_version = '1.2.70'
+    ext.kotlin_version = '1.2.71'
     ext.dokka_version = '0.9.16'
     repositories {
         jcenter()
@@ -10,6 +10,7 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
     }
 }
 
@@ -24,6 +25,62 @@ allprojects {
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'org.jetbrains.dokka'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
+apply from: 'versioning.gradle'
+
+publishing {
+    publications {
+        Library(MavenPublication) {
+            artifact("$buildDir/outputs/aar/materialfields-release.aar")
+            groupId = 'com.gabrielepmattia.me'
+            artifactId = 'materialfields'
+            version = materialfieldsVersionName
+
+            //The publication doesn't know about our dependencies, so we have to manually add them to the pom
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+
+                //Iterate over the compile dependencies (we don't want the test ones), adding a <dependency> node for each
+                configurations.implementation.allDependencies.each {
+                    def dependencyNode = dependenciesNode.appendNode('dependency')
+                    dependencyNode.appendNode('groupId', it.group)
+                    dependencyNode.appendNode('artifactId', it.name)
+                    dependencyNode.appendNode('version', it.version)
+                }
+            }
+        }
+    }
+}
+
+def getVersionName() throws GradleException {
+    if (project.hasProperty('publishTrack') && publishTrack == 'production')
+        return materialfieldsVersionName
+    else return materialfieldsVersionName + '-beta'
+}
+
+bintray {
+    user bintrayUser
+    key bintrayApiKey
+    override = true
+    pkg {
+        repo = 'maven'
+        name = 'materialfields'
+        userOrg = bintrayUser
+        licenses = ['LGPL-3.0']
+        issueTrackerUrl = 'https://gitlab.com/gabrielepmattia/materialfields/issues'
+        desc = 'Android library for creating awesome form fields'
+        vcsUrl = 'https://gitlab.com/gabrielepmattia/materialfields.git'
+        publish = true
+        publicDownloadNumbers = true
+        version {
+            name = getVersionName()
+            vcsTag = getVersionName()
+            released = new Date()
+        }
+    }
+    publications = ['Library']
+}
 
 android {
     compileSdkVersion 28
@@ -31,8 +88,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode materialfieldsVersionCode.toInteger()
+        versionName materialfieldsVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
