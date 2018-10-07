@@ -4,7 +4,7 @@
 
 _Create awesome forms in material design style_
 
-![repo banner](https://gitlab.com/gabrielepmattia/materialfields/raw/staging/imgs/repo_top_banner.png)
+![repo banner](imgs/repo_top_banner.png)
 
 # Features
 
@@ -39,7 +39,9 @@ compile 'com.gabrielepmattia.me:materialfields:0.0.1-beta'
 
 Here's a video showing the most relevant features of the library:
 
-<div style="text-align:center"><img src="https://i.imgur.com/WzW2M0D.gif" alt="video" height=700/></div>
+<span style="display:block;text-align:center">
+<img src="https://i.imgur.com/WzW2M0D.gif" alt="video" height=700/>
+</span>
 
 The xml file for the form shown in the video is the following
 
@@ -126,8 +128,6 @@ The xml file for the form shown in the video is the following
 
 </LinearLayout>
 ```
-
-to have a result like
 
 # Changelog
 

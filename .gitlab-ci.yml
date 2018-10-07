@@ -17,6 +17,7 @@ before_script:
   - echo "bintrayApiKey=" $BINTRAY_KEY >> $GRADLE_USER_HOME/gradle.properties
 
 cache:
+  key: ${CI_COMMIT_REF_SLUG}
   paths:
     - .gradle/wrapper
     - .gradle/caches
