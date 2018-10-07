@@ -12,24 +12,21 @@ before_script:
   # Init vm build configuration
   - export GRADLE_USER_HOME=`pwd`/.gradle
   - mkdir -p $GRADLE_USER_HOME
+  - gradle wrapper
   - chmod +x ./gradlew
   - echo "bintrayUser=" $BINTRAY_USER >> $GRADLE_USER_HOME/gradle.properties
   - echo "bintrayApiKey=" $BINTRAY_KEY >> $GRADLE_USER_HOME/gradle.properties
 
 cache:
-  key: ${CI_COMMIT_REF_SLUG}
   paths:
     - .gradle/wrapper
     - .gradle/caches
 
 # --------------- Build -------------- #
-build-beta:
+build:
   stage: build
   script:
-    - ./gradlew assembleBetaDebug
-    - ./gradlew assembleBetaRelease
-  only:
-    - staging
+    - ./gradlew assembleRelease
   artifacts:
     paths:
       - build/outputs/
