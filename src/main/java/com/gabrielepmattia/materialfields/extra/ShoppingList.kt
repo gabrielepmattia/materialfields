@@ -8,10 +8,10 @@ import android.content.DialogInterface
 import android.content.res.TypedArray
 import android.graphics.PorterDuff
 import android.graphics.Typeface
-import android.support.constraint.ConstraintLayout
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -35,9 +35,9 @@ import com.gabrielepmattia.materialfields.utils.Dialogs
  */
 class ShoppingList : LinearLayout {
 
-    private var mRecyclerView: RecyclerView? = null
+    private var mRecyclerView: androidx.recyclerview.widget.RecyclerView? = null
     private var mRecyclerViewAdapter: ShoppingListRecyclerAdapter? = null
-    private var mRecyclerViewLayoutManager: LinearLayoutManager? = null
+    private var mRecyclerViewLayoutManager: androidx.recyclerview.widget.LinearLayoutManager? = null
     private var mAddItemPlaceHolder: String? = null
 
     var items: ArrayList<String> = ArrayList()
@@ -89,7 +89,7 @@ class ShoppingList : LinearLayout {
     private fun initAttrs(attrs: AttributeSet) {
         mRecyclerView = findViewById(R.id.field_list_recycler)
         mRecyclerViewAdapter = ShoppingListRecyclerAdapter()
-        mRecyclerViewLayoutManager = LinearLayoutManager(context)
+        mRecyclerViewLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
 
         val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.ShoppingList) as TypedArray
         mAddItemPlaceHolder = t.getString(R.styleable.ShoppingList_addItemPlaceHolder)
@@ -109,7 +109,7 @@ class ShoppingList : LinearLayout {
     /*
      * Adapter
      */
-    private inner class ShoppingListRecyclerAdapter : RecyclerView.Adapter<ShoppingListRecyclerAdapter.ViewHolder>() {
+    private inner class ShoppingListRecyclerAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<ShoppingListRecyclerAdapter.ViewHolder>() {
 
         val TAG: String = ShoppingListRecyclerAdapter::class.java.simpleName
 
@@ -119,7 +119,7 @@ class ShoppingList : LinearLayout {
                 field = b
                 // update only the last entry and check if it's null. It's null when position has not yet
                 // calculated and in this case onBindViewHolder will do the job
-                val holderTemp: RecyclerView.ViewHolder =
+                val holderTemp: androidx.recyclerview.widget.RecyclerView.ViewHolder =
                         mRecyclerView!!.findViewHolderForAdapterPosition(itemCount - 1) ?: return
                 val holder = holderTemp as ShoppingListRecyclerAdapter.ViewHolder
                 if (b) holder.setDisabledElement() else holder.setAsAddElement()
@@ -129,7 +129,7 @@ class ShoppingList : LinearLayout {
             set(b) {
                 if (field == b) return
                 field = b
-                var holderTemp: RecyclerView.ViewHolder
+                var holderTemp: androidx.recyclerview.widget.RecyclerView.ViewHolder
                 var holder: ShoppingListRecyclerAdapter.ViewHolder
                 // update all view holders of entries
                 if (itemCount < 2) return // no entries available
@@ -141,7 +141,7 @@ class ShoppingList : LinearLayout {
                 }
             }
 
-        inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        inner class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
             var mIcon: ImageView = itemView.findViewById(R.id.field_list_item_image)
             var mContent: TextView = itemView.findViewById(R.id.field_list_item_content)
             var mContainer: ConstraintLayout = itemView.findViewById(R.id.field_list_item_container)
