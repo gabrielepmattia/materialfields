@@ -2,8 +2,6 @@ package com.gabrielepmattia.materialfields.fields
 
 import android.content.Context
 import android.content.res.TypedArray
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import android.transition.Fade
 import android.transition.TransitionManager
 import android.util.AttributeSet
@@ -12,6 +10,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import com.gabrielepmattia.materialfields.R
 
 /**
@@ -48,11 +48,13 @@ open class Field : LinearLayout {
     /**
      * The value of the field (the subtitle)
      */
-    var value: String = ""
+    var value: String? = null
         set(s) {
-            if (s.isEmpty()) mSubtitleView!!.text = context.getString(R.string.no_value)
-            else mSubtitleView!!.text = s
             field = s
+            if (s.isNullOrBlank())
+                mSubtitleView!!.visibility = View.GONE
+            else
+                mSubtitleView!!.text = s
         }
 
     /**
@@ -98,7 +100,12 @@ open class Field : LinearLayout {
         this.initAttrs(attrs)
     }
 
-    constructor(context: Context, attrs: AttributeSet, defAttr: Int, defRes: Int) : super(context, attrs, defAttr, defRes) {
+    constructor(context: Context, attrs: AttributeSet, defAttr: Int, defRes: Int) : super(
+        context,
+        attrs,
+        defAttr,
+        defRes
+    ) {
         this.initView(context)
         this.initAttrs(attrs)
     }
@@ -129,7 +136,7 @@ open class Field : LinearLayout {
 
         // set attrs
         if (tempTitle != null) title = tempTitle
-        value = tempSubtitle ?: ""
+        value = tempSubtitle
         disabled = tempDisabled
     }
 
