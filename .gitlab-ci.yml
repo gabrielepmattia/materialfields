@@ -1,4 +1,4 @@
-image: gabry3795/docker-android-alpine
+image: preventis/docker-android-alpine
 
 stages:
   - build
