@@ -1,4 +1,4 @@
-image: gabrielepmattia/docker-android-alpine
+image: preventis/docker-android-alpine
 
 stages:
   - build
@@ -10,7 +10,7 @@ variables:
 
 before_script:
   # Init vm build configuration
-  - export GRADLE_USER_HOME=`pwd`/.gradle
+  - export GRADLE_USER_HOME=$(pwd)/.gradle
   - mkdir -p $GRADLE_USER_HOME
   - chmod +x ./gradlew
   - echo "bintrayUser=" $BINTRAY_USER >> $GRADLE_USER_HOME/gradle.properties
