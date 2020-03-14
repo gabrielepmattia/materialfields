@@ -66,7 +66,7 @@ class FieldCheckBox : Field {
 
         // get attrs
         val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.FieldCheckBox) as TypedArray
-        val tempChecked = t.getBoolean(R.styleable.FieldCheckBox_checked, false)
+        val tempChecked = t.getBoolean(R.styleable.FieldCheckBox_materialfieldsChecked, false)
         t.recycle()
 
         // init all base attrs

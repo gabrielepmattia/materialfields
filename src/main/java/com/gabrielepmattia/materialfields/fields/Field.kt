@@ -70,14 +70,24 @@ open class Field : LinearLayout {
                 mContainer?.isFocusable = false
                 mTitleView?.setTextColor(ContextCompat.getColor(context, R.color.grey600))
                 mSubtitleView?.setTextColor(ContextCompat.getColor(context, R.color.grey500))
-                mBottomLineSeparator?.setBackgroundColor(ContextCompat.getColor(context, R.color.grey400))
+                mBottomLineSeparator?.setBackgroundColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.grey400
+                    )
+                )
             } else {
                 mContainer?.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
                 mContainer?.isClickable = true
                 mContainer?.isFocusable = true
                 mTitleView?.setTextColor(ContextCompat.getColor(context, R.color.black))
                 mSubtitleView?.setTextColor(ContextCompat.getColor(context, R.color.grey600))
-                mBottomLineSeparator?.setBackgroundColor(ContextCompat.getColor(context, R.color.grey300))
+                mBottomLineSeparator?.setBackgroundColor(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.grey300
+                    )
+                )
             }
         }
 
@@ -95,7 +105,11 @@ open class Field : LinearLayout {
         this.initAttrs(attrs)
     }
 
-    constructor(context: Context, attrs: AttributeSet, defAttr: Int) : super(context, attrs, defAttr) {
+    constructor(context: Context, attrs: AttributeSet, defAttr: Int) : super(
+        context,
+        attrs,
+        defAttr
+    ) {
         this.initView(context)
         this.initAttrs(attrs)
     }
@@ -115,7 +129,8 @@ open class Field : LinearLayout {
      */
 
     protected open fun initView(context: Context) {
-        val i: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val i: LayoutInflater =
+            context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         i.inflate(R.layout.component_field, this, true)
     }
 
@@ -129,9 +144,9 @@ open class Field : LinearLayout {
 
         // get attrs
         val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.Field) as TypedArray
-        val tempTitle = t.getString(R.styleable.Field_title)
-        val tempSubtitle = t.getString(R.styleable.Field_value)
-        val tempDisabled = t.getBoolean(R.styleable.Field_disabled, false)
+        val tempTitle = t.getString(R.styleable.Field_materialfieldsTitle)
+        val tempSubtitle = t.getString(R.styleable.Field_materialfieldsValue)
+        val tempDisabled = t.getBoolean(R.styleable.Field_materialfieldsDisabled, false)
         t.recycle()
 
         // set attrs

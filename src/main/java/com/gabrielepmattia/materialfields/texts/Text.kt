@@ -54,8 +54,8 @@ open class Text : LinearLayout {
         mTextView = findViewById(R.id.text_text)
 
         val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.Text) as TypedArray
-        val tempText = t.getString(R.styleable.Text_text) ?: ""
-        val tempTextAlignement = t.getString(R.styleable.Text_textAlignment) ?: ""
+        val tempText = t.getString(R.styleable.Text_materialfieldsText) ?: ""
+        val tempTextAlignement = t.getString(R.styleable.Text_materialfieldsTextAlignment) ?: ""
         //val tempTextSize = t.getDimension(R.styleable.Text_textSize, )
         t.recycle()
 

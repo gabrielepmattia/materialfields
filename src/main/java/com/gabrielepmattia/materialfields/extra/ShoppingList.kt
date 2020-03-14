@@ -92,9 +92,9 @@ class ShoppingList : LinearLayout {
         mRecyclerViewLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
 
         val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.ShoppingList) as TypedArray
-        mAddItemPlaceHolder = t.getString(R.styleable.ShoppingList_addItemPlaceHolder)
-        disabledAdd = t.getBoolean(R.styleable.ShoppingList_disabledAdd, false)
-        disabledEntries = t.getBoolean(R.styleable.ShoppingList_disabledEntries, false)
+        mAddItemPlaceHolder = t.getString(R.styleable.ShoppingList_materialfieldsAddItemPlaceHolder)
+        disabledAdd = t.getBoolean(R.styleable.ShoppingList_materialfieldsDisabledAdd, false)
+        disabledEntries = t.getBoolean(R.styleable.List_materialfieldsDisabledEntries, false)
         t.recycle()
     }
 

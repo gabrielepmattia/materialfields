@@ -111,11 +111,11 @@ class FieldDateRange : Field {
 
         // get attrs
         val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.FieldDateRange) as TypedArray
-        val tempStartUnixDate = t.getFloat(R.styleable.FieldDateRange_defaultStartDateUnixTimestamp, -1f)
-        val tempEndUnixDate = t.getFloat(R.styleable.FieldDateRange_defaultEndDateUnixTimestamp, -1f)
-        val tempDateLimitRangeStartUnixDate = t.getFloat(R.styleable.FieldDateRange_dateLimitRangeStartUnixTimestamp, -1f)
-        val tempDateLimitRangeEndUnixDate = t.getFloat(R.styleable.FieldDateRange_dateLimitRangeEndUnixTimestamp, -1f)
-        val tempChecked = t.getBoolean(R.styleable.FieldDateRange_checked, false)
+        val tempStartUnixDate = t.getFloat(R.styleable.FieldDateRange_materialfieldsDefaultStartDateUnixTimestamp, -1f)
+        val tempEndUnixDate = t.getFloat(R.styleable.FieldDateRange_materialfieldsDefaultEndDateUnixTimestamp, -1f)
+        val tempDateLimitRangeStartUnixDate = t.getFloat(R.styleable.FieldDateRange_materialfieldsDateLimitRangeStartUnixTimestamp, -1f)
+        val tempDateLimitRangeEndUnixDate = t.getFloat(R.styleable.FieldDateRange_materialfieldsDateLimitRangeEndUnixTimestamp, -1f)
+        val tempChecked = t.getBoolean(R.styleable.FieldDateRange_materialfieldsChecked, false)
         t.recycle()
 
         // init all base attrs

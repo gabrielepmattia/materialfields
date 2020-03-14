@@ -3,10 +3,6 @@ package com.gabrielepmattia.materialfields.extra
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.Typeface
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import com.gabrielepmattia.materialfields.R
 
 /**
@@ -74,12 +72,21 @@ class List : LinearLayout {
         initAttrs(attrs)
     }
 
-    constructor(context: Context, attrs: AttributeSet, defAttr: Int) : super(context, attrs, defAttr) {
+    constructor(context: Context, attrs: AttributeSet, defAttr: Int) : super(
+        context,
+        attrs,
+        defAttr
+    ) {
         initView(context)
         initAttrs(attrs)
     }
 
-    constructor(context: Context, attrs: AttributeSet, defAttr: Int, defRes: Int) : super(context, attrs, defAttr, defRes) {
+    constructor(context: Context, attrs: AttributeSet, defAttr: Int, defRes: Int) : super(
+        context,
+        attrs,
+        defAttr,
+        defRes
+    ) {
         initView(context)
         initAttrs(attrs)
     }
@@ -89,7 +96,8 @@ class List : LinearLayout {
      */
 
     private fun initView(context: Context) {
-        val i: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val i: LayoutInflater =
+            context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         i.inflate(R.layout.component_field_list, this, true)
     }
 
@@ -98,10 +106,11 @@ class List : LinearLayout {
         mRecyclerViewAdapter = ListItemRecyclerAdapter()
         mRecyclerViewLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
 
-        val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.ShoppingList) as TypedArray
-        mAddItemPlaceHolder = t.getString(R.styleable.List_addItemPlaceHolder)
-        disabledAdd = t.getBoolean(R.styleable.List_disabledAdd, false)
-        disabledEntries = t.getBoolean(R.styleable.List_disabledEntries, false)
+        val t: TypedArray =
+            context.obtainStyledAttributes(attrs, R.styleable.ShoppingList) as TypedArray
+        mAddItemPlaceHolder = t.getString(R.styleable.List_materialfieldsAddItemPlaceHolder)
+        disabledAdd = t.getBoolean(R.styleable.List_materialfieldsDisabledAdd, false)
+        disabledEntries = t.getBoolean(R.styleable.List_materialfieldsDisabledEntries, false)
         t.recycle()
     }
 
@@ -113,7 +122,8 @@ class List : LinearLayout {
         mRecyclerView!!.adapter = mRecyclerViewAdapter
     }
 
-    private inner class ListItemRecyclerAdapter() : androidx.recyclerview.widget.RecyclerView.Adapter<ListItemRecyclerAdapter.ViewHolder>() {
+    private inner class ListItemRecyclerAdapter() :
+        androidx.recyclerview.widget.RecyclerView.Adapter<ListItemRecyclerAdapter.ViewHolder>() {
 
         var items: ArrayList<Pair<String, String>>? = null
             set(s) {
@@ -130,7 +140,7 @@ class List : LinearLayout {
                 field = o
                 // check if the view is ready otherwise the listener will be set onBindView
                 val tempAddEntryHolder = mRecyclerView!!
-                        .findViewHolderForAdapterPosition(itemCount - 1) ?: return
+                    .findViewHolderForAdapterPosition(itemCount - 1) ?: return
                 val addEntryHolder = tempAddEntryHolder as ViewHolder
                 addEntryHolder.itemView.setOnClickListener(o)
             }
@@ -139,12 +149,14 @@ class List : LinearLayout {
             this.items = items
         }
 
-        inner class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+        inner class ViewHolder(itemView: View) :
+            androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
             var mIcon: ImageView = itemView.findViewById(R.id.field_list_item_image)
             var mContent: TextView = itemView.findViewById(R.id.field_list_item_content)
             var mSubcontent: TextView = itemView.findViewById(R.id.field_list_item_subcontent)
             var mContainer: ConstraintLayout = itemView.findViewById(R.id.field_list_item_container)
-            var mBottomLineSeparator: View = itemView.findViewById(R.id.field_list_item_bottom_line_separator)
+            var mBottomLineSeparator: View =
+                itemView.findViewById(R.id.field_list_item_bottom_line_separator)
 
             fun setAsAddElement() {
                 mContent.text = mAddItemPlaceHolder
@@ -179,7 +191,7 @@ class List : LinearLayout {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val itemView = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.component_field_list_item, parent, false)
+                .inflate(R.layout.component_field_list_item, parent, false)
             return ViewHolder(itemView)
         }
 

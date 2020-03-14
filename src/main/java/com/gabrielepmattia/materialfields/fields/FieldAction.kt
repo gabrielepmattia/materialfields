@@ -120,10 +120,10 @@ open class FieldAction : LinearLayout {
 
         // get attrs
         val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.FieldAction) as TypedArray
-        val tempTitle = t.getString(R.styleable.FieldAction_title)
-        val tempDisabled = t.getBoolean(R.styleable.FieldAction_disabled, false)
-        val tempDrawable = t.getDrawable(R.styleable.FieldAction_drawable)
-        val tempDrawableTint = t.getColor((R.styleable.FieldAction_drawableTint), ContextCompat.getColor(context, R.color.grey700))
+        val tempTitle = t.getString(R.styleable.FieldAction_materialfieldsTitle)
+        val tempDisabled = t.getBoolean(R.styleable.FieldAction_materialfieldsDisabled, false)
+        val tempDrawable = t.getDrawable(R.styleable.FieldAction_materialfieldsDrawable)
+        val tempDrawableTint = t.getColor((R.styleable.FieldAction_materialfieldsDrawableTint), ContextCompat.getColor(context, R.color.grey700))
         t.recycle()
 
         // set attrs

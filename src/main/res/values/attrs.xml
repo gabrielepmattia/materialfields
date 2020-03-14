@@ -3,59 +3,59 @@
 
     <!-- fields -->
     <declare-styleable name="Field">
-        <attr name="title" format="string" />
-        <attr name="value" format="string" />
-        <attr name="disabled" format="boolean" />
+        <attr name="materialfieldsTitle" format="string" />
+        <attr name="materialfieldsValue" format="string" />
+        <attr name="materialfieldsDisabled" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="FieldGeneric">
-        <attr name="drawable" format="reference" />
+        <attr name="materialfieldsDrawable" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="FieldInputText">
-        <attr name="required" format="boolean" />
+        <attr name="materialfieldsRequired" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="FieldCheckBox">
-        <attr name="checked" format="boolean" />
+        <attr name="materialfieldsChecked" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="FieldDateRange">
-        <attr name="defaultStartDateUnixTimestamp" format="float" />
-        <attr name="defaultEndDateUnixTimestamp" format="float" />
-        <attr name="dateLimitRangeStartUnixTimestamp" format="float" />
-        <attr name="dateLimitRangeEndUnixTimestamp" format="float" />
-        <attr name="checked" />
+        <attr name="materialfieldsDefaultStartDateUnixTimestamp" format="float" />
+        <attr name="materialfieldsDefaultEndDateUnixTimestamp" format="float" />
+        <attr name="materialfieldsDateLimitRangeStartUnixTimestamp" format="float" />
+        <attr name="materialfieldsDateLimitRangeEndUnixTimestamp" format="float" />
+        <attr name="materialfieldsChecked" />
     </declare-styleable>
 
     <declare-styleable name="FieldAction">
-        <attr name="title" />
-        <attr name="drawable" />
-        <attr name="disabled" />
-        <attr name="drawableTint" format="color" />
+        <attr name="materialfieldsTitle" />
+        <attr name="materialfieldsDrawable" />
+        <attr name="materialfieldsDisabled" />
+        <attr name="materialfieldsDrawableTint" format="color" />
     </declare-styleable>
 
     <!-- Texts -->
     <declare-styleable name="Text">
-        <attr name="text" />
-        <attr name="textAlignment" format="string" />
+        <attr name="materialfieldsText" format="string" />
+        <attr name="materialfieldsTextAlignment" format="string" />
     </declare-styleable>
 
     <declare-styleable name="Header">
-        <attr name="text" />
+        <attr name="materialfieldsText" />
     </declare-styleable>
 
     <!-- Extra -->
     <declare-styleable name="ShoppingList">
-        <attr name="addItemPlaceHolder" format="string" required="true" />
-        <attr name="disabledAdd" format="boolean" />
-        <attr name="disabledEntries" format="boolean" />
+        <attr name="materialfieldsAddItemPlaceHolder" format="string" required="true" />
+        <attr name="materialfieldsDisabledAdd" format="boolean" />
+        <attr name="materialfieldsDisabledEntries" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="List">
-        <attr name="addItemPlaceHolder" required="true" />
-        <attr name="disabledAdd" />
-        <attr name="disabledEntries" />
+        <attr name="materialfieldsAddItemPlaceHolder" required="true" />
+        <attr name="materialfieldsDisabledAdd" />
+        <attr name="materialfieldsDisabledEntries" />
     </declare-styleable>
 
 </resources>

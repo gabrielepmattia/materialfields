@@ -34,7 +34,7 @@ class FieldInputText : FieldGeneric {
 
     override fun initAttrs(attrs: AttributeSet) {
         val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.FieldInputText) as TypedArray
-        val req = t.getBoolean(R.styleable.FieldInputText_required, false)
+        val req = t.getBoolean(R.styleable.FieldInputText_materialfieldsRequired, false)
         t.recycle()
 
         // init all base attrs
