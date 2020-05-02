@@ -88,7 +88,7 @@ open class FieldGeneric : Field {
         mDrawableView = findViewById(R.id.field_image)
 
         val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.FieldGeneric) as TypedArray
-        val tempDrawable = t.getDrawable(R.styleable.FieldGeneric_materialfieldsDrawable)
+        val tempDrawable = t.getDrawable(R.styleable.FieldGeneric_drawable)
         t.recycle()
 
         // init all base attrs

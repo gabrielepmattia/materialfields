@@ -156,9 +156,9 @@ open class Field : LinearLayout {
 
         // get attrs
         val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.Field) as TypedArray
-        val tempTitle = t.getString(R.styleable.Field_materialfieldsTitle)
-        val tempSubtitle = t.getString(R.styleable.Field_materialfieldsValue)
-        val tempDisabled = t.getBoolean(R.styleable.Field_materialfieldsDisabled, false)
+        val tempTitle = t.getString(R.styleable.Field_title)
+        val tempSubtitle = t.getString(R.styleable.Field_value)
+        val tempDisabled = t.getBoolean(R.styleable.Field_disabled, false)
         t.recycle()
 
         // set attrs

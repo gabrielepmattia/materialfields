@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Materialfields
   ~ Copyright (c) 2020 by gabrielepmattia, All rights reserved.
   ~
@@ -21,59 +20,63 @@
 
     <!-- fields -->
     <declare-styleable name="Field">
-        <attr name="materialfieldsTitle" format="string" />
-        <attr name="materialfieldsValue" format="string" />
-        <attr name="materialfieldsDisabled" format="boolean" />
+        <attr name="title" format="string" />
+        <attr name="value" format="string" />
+        <attr name="disabled" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="FieldGeneric">
-        <attr name="materialfieldsDrawable" format="reference" />
+        <attr name="drawable" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="FieldInputText">
-        <attr name="materialfieldsRequired" format="boolean" />
+        <attr name="required" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="FieldCheckBox">
-        <attr name="materialfieldsChecked" format="boolean" />
+        <attr name="checked" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="FieldDateRange">
-        <attr name="materialfieldsDefaultStartDateUnixTimestamp" format="float" />
-        <attr name="materialfieldsDefaultEndDateUnixTimestamp" format="float" />
-        <attr name="materialfieldsDateLimitRangeStartUnixTimestamp" format="float" />
-        <attr name="materialfieldsDateLimitRangeEndUnixTimestamp" format="float" />
-        <attr name="materialfieldsChecked" />
+        <attr name="defaultStartDateUnixTimestamp" format="float" />
+        <attr name="defaultEndDateUnixTimestamp" format="float" />
+        <attr name="dateLimitRangeStartUnixTimestamp" format="float" />
+        <attr name="dateLimitRangeEndUnixTimestamp" format="float" />
+        <attr name="checked" />
     </declare-styleable>
 
     <declare-styleable name="FieldAction">
-        <attr name="materialfieldsTitle" />
-        <attr name="materialfieldsDrawable" />
-        <attr name="materialfieldsDisabled" />
-        <attr name="materialfieldsDrawableTint" format="color" />
+        <attr name="title" />
+        <attr name="drawable" />
+        <attr name="disabled" />
+        <attr name="drawableTint" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="FieldImageView">
+        <attr name="image" format="reference" />
     </declare-styleable>
 
     <!-- Texts -->
     <declare-styleable name="Text">
-        <attr name="materialfieldsText" format="string" />
-        <attr name="materialfieldsTextAlignment" format="string" />
+        <attr name="text" format="string" />
+        <attr name="textAlignment" format="string" />
     </declare-styleable>
 
     <declare-styleable name="Header">
-        <attr name="materialfieldsText" />
+        <attr name="text" />
     </declare-styleable>
 
     <!-- Extra -->
     <declare-styleable name="ShoppingList">
-        <attr name="materialfieldsAddItemPlaceHolder" format="string" required="true" />
-        <attr name="materialfieldsDisabledAdd" format="boolean" />
-        <attr name="materialfieldsDisabledEntries" format="boolean" />
+        <attr name="addItemPlaceHolder" format="string" required="true" />
+        <attr name="disabledAdd" format="boolean" />
+        <attr name="disabledEntries" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="List">
-        <attr name="materialfieldsAddItemPlaceHolder" required="true" />
-        <attr name="materialfieldsDisabledAdd" />
-        <attr name="materialfieldsDisabledEntries" />
+        <attr name="addItemPlaceHolder" required="true" />
+        <attr name="disabledAdd" />
+        <attr name="disabledEntries" />
     </declare-styleable>
 
 </resources>

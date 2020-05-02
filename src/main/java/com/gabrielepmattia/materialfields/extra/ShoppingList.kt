@@ -26,10 +26,6 @@ import android.content.DialogInterface
 import android.content.res.TypedArray
 import android.graphics.PorterDuff
 import android.graphics.Typeface
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -38,6 +34,8 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import com.gabrielepmattia.materialfields.R
 import com.gabrielepmattia.materialfields.utils.Dialogs
 
@@ -88,7 +86,12 @@ class ShoppingList : LinearLayout {
         initAttrs(attrs)
     }
 
-    constructor(context: Context, attrs: AttributeSet, defAttr: Int, defRes: Int) : super(context, attrs, defAttr, defRes) {
+    constructor(context: Context, attrs: AttributeSet, defAttr: Int, defRes: Int) : super(
+        context,
+        attrs,
+        defAttr,
+        defRes
+    ) {
         initView(context)
         initAttrs(attrs)
     }
@@ -104,9 +107,9 @@ class ShoppingList : LinearLayout {
         mRecyclerViewLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
 
         val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.ShoppingList) as TypedArray
-        mAddItemPlaceHolder = t.getString(R.styleable.ShoppingList_materialfieldsAddItemPlaceHolder)
-        disabledAdd = t.getBoolean(R.styleable.ShoppingList_materialfieldsDisabledAdd, false)
-        disabledEntries = t.getBoolean(R.styleable.List_materialfieldsDisabledEntries, false)
+        mAddItemPlaceHolder = t.getString(R.styleable.ShoppingList_addItemPlaceHolder)
+        disabledAdd = t.getBoolean(R.styleable.ShoppingList_disabledAdd, false)
+        disabledEntries = t.getBoolean(R.styleable.ShoppingList_disabledEntries, false)
         t.recycle()
     }
 
@@ -121,7 +124,8 @@ class ShoppingList : LinearLayout {
     /*
      * Adapter
      */
-    private inner class ShoppingListRecyclerAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<ShoppingListRecyclerAdapter.ViewHolder>() {
+    private inner class ShoppingListRecyclerAdapter :
+        androidx.recyclerview.widget.RecyclerView.Adapter<ShoppingListRecyclerAdapter.ViewHolder>() {
 
         val TAG: String = ShoppingListRecyclerAdapter::class.java.simpleName
 
@@ -132,7 +136,7 @@ class ShoppingList : LinearLayout {
                 // update only the last entry and check if it's null. It's null when position has not yet
                 // calculated and in this case onBindViewHolder will do the job
                 val holderTemp: androidx.recyclerview.widget.RecyclerView.ViewHolder =
-                        mRecyclerView!!.findViewHolderForAdapterPosition(itemCount - 1) ?: return
+                    mRecyclerView!!.findViewHolderForAdapterPosition(itemCount - 1) ?: return
                 val holder = holderTemp as ShoppingListRecyclerAdapter.ViewHolder
                 if (b) holder.setDisabledElement() else holder.setAsAddElement()
             }
@@ -174,13 +178,13 @@ class ShoppingList : LinearLayout {
                 mIcon.setOnClickListener { _: View ->
                     if (disabledEntries) return@setOnClickListener
                     Dialogs.showDialogWithPNButton(
-                            itemView.context,
-                            itemView.context.getString(R.string.dialog_delete_header),
-                            itemView.context.getString(R.string.dialog_delete_description, mContent.text),
-                            itemView.context.getString(R.string.dialog_action_ok),
-                            itemView.context.getString(R.string.dialog_action_cancel),
-                            DeleteItemOKAction(adapterPosition),
-                            AddItemCancelAction()
+                        itemView.context,
+                        itemView.context.getString(R.string.dialog_delete_header),
+                        itemView.context.getString(R.string.dialog_delete_description, mContent.text),
+                        itemView.context.getString(R.string.dialog_action_ok),
+                        itemView.context.getString(R.string.dialog_action_cancel),
+                        DeleteItemOKAction(adapterPosition),
+                        AddItemCancelAction()
                     )
                 }
                 mBottomLineSeparator.setBackgroundColor(ContextCompat.getColor(context, R.color.grey300))
@@ -213,7 +217,7 @@ class ShoppingList : LinearLayout {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val itemView = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.component_field_shopping_list_item, parent, false)
+                .inflate(R.layout.component_field_shopping_list_item, parent, false)
             return ViewHolder(itemView)
         }
 
@@ -234,17 +238,18 @@ class ShoppingList : LinearLayout {
             // Set behavior for all elements
             holder.itemView.setOnClickListener { _: View ->
                 if ((holder.adapterPosition == itemCount - 1 && disabledAdd) ||
-                        (holder.adapterPosition != itemCount - 1 && disabledEntries)) return@setOnClickListener
+                    (holder.adapterPosition != itemCount - 1 && disabledEntries)
+                ) return@setOnClickListener
 
                 Dialogs.showDialogWithInputAndPNButtons(
-                        holder.itemView.context,
-                        LayoutInflater.from(holder.itemView.context),
-                        mAddItemPlaceHolder!!,
-                        holder.itemView.context.getString(R.string.dialog_action_ok),
-                        holder.itemView.context.getString(R.string.dialog_action_cancel),
-                        AddItemOKAction(holder.adapterPosition),
-                        AddItemCancelAction(),
-                        if (holder.adapterPosition < items.size) items[holder.adapterPosition] else ""
+                    holder.itemView.context,
+                    LayoutInflater.from(holder.itemView.context),
+                    mAddItemPlaceHolder!!,
+                    holder.itemView.context.getString(R.string.dialog_action_ok),
+                    holder.itemView.context.getString(R.string.dialog_action_cancel),
+                    AddItemOKAction(holder.adapterPosition),
+                    AddItemCancelAction(),
+                    if (holder.adapterPosition < items.size) items[holder.adapterPosition] else ""
                 )
             }
         }
@@ -275,7 +280,7 @@ class ShoppingList : LinearLayout {
             }
         }
 
-        inner class AddItemCancelAction() : DialogInterface.OnClickListener {
+        inner class AddItemCancelAction : DialogInterface.OnClickListener {
             override fun onClick(p0: DialogInterface?, p1: Int) {
                 p0!!.cancel()
             }
