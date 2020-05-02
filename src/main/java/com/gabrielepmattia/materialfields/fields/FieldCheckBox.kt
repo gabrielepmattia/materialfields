@@ -1,3 +1,21 @@
+/*
+ * Materialfields
+ * Copyright (c) 2020 by gabrielepmattia, All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3.0 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library.
+ */
+
 package com.gabrielepmattia.materialfields.fields
 
 import android.content.Context
@@ -8,11 +26,6 @@ import android.view.View
 import android.widget.CheckBox
 import com.gabrielepmattia.materialfields.R
 
-/**
-* @Project aj-android
-* @Author gabry3795
-* @Date 27/02/2018 21:16
-*/
 
 /**
  * Simple checkbox form control. You have to specify:
@@ -33,7 +46,7 @@ class FieldCheckBox : Field {
 
     override var disabled: Boolean
         set(b) {
-            if(b == disabled) return
+            if (b == disabled) return
             super.disabled = b
             mCheckBox?.isEnabled = !b
         }
@@ -42,8 +55,8 @@ class FieldCheckBox : Field {
         }
 
     /*
-* Constructors
-*/
+     * Constructors
+     */
 
     constructor(context: Context) : super(context)
 
@@ -51,7 +64,12 @@ class FieldCheckBox : Field {
 
     constructor(context: Context, attrs: AttributeSet, defAttr: Int) : super(context, attrs, defAttr)
 
-    constructor(context: Context, attrs: AttributeSet, defAttr: Int, defRes: Int) : super(context, attrs, defAttr, defRes)
+    constructor(context: Context, attrs: AttributeSet, defAttr: Int, defRes: Int) : super(
+        context,
+        attrs,
+        defAttr,
+        defRes
+    )
 
     /*
      * Helpers
@@ -79,8 +97,8 @@ class FieldCheckBox : Field {
     override fun onFinishInflate() {
         super.onFinishInflate()
 
-        mContainer!!.setOnClickListener({ _: View ->
-            if(!disabled) mCheckBox!!.toggle()
-        })
+        mContainer!!.setOnClickListener { _: View ->
+            if (!disabled) mCheckBox!!.toggle()
+        }
     }
 }

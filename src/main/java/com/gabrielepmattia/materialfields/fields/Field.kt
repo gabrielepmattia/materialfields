@@ -1,3 +1,21 @@
+/*
+ * Materialfields
+ * Copyright (c) 2020 by gabrielepmattia, All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3.0 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library.
+ */
+
 package com.gabrielepmattia.materialfields.fields
 
 import android.content.Context
@@ -13,12 +31,6 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.gabrielepmattia.materialfields.R
-
-/**
- * @Project aj-android
- * @Author gabry3795
- * @Date 26/02/2018 21:16
- */
 
 /**
  * Generic field control with title and subtitle. The subtitle represent the actual value of the field
@@ -153,10 +165,6 @@ open class Field : LinearLayout {
         if (tempTitle != null) title = tempTitle
         value = tempSubtitle
         disabled = tempDisabled
-    }
-
-    override fun onFinishInflate() {
-        super.onFinishInflate()
     }
 
     override fun setOnClickListener(l: OnClickListener?) {

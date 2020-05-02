@@ -1,23 +1,36 @@
+/*
+ * Materialfields
+ * Copyright (c) 2020 by gabrielepmattia, All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3.0 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library.
+ */
+
 package com.gabrielepmattia.materialfields.fields
 
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
-import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.gabrielepmattia.materialfields.R
 
-/**
-* @Project aj-android
-* @Author gabry3795
-* @Date 02/03/2018 21:16
-*/
 open class FieldGeneric : Field {
     protected var mDrawableView: ImageView? = null
 
@@ -37,7 +50,10 @@ open class FieldGeneric : Field {
         set(b) {
             if (b == disabled) return
             super.disabled = b
-            if (b) mDrawableView?.setColorFilter(ContextCompat.getColor(context, R.color.grey500), PorterDuff.Mode.SRC_IN)
+            if (b) mDrawableView?.setColorFilter(
+                ContextCompat.getColor(context, R.color.grey500),
+                PorterDuff.Mode.SRC_IN
+            )
             else mDrawableView?.setColorFilter(ContextCompat.getColor(context, R.color.grey700), PorterDuff.Mode.SRC_IN)
         }
         get() {
@@ -52,7 +68,12 @@ open class FieldGeneric : Field {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet, defAttr: Int) : super(context, attrs, defAttr)
-    constructor(context: Context, attrs: AttributeSet, defAttr: Int, defRes: Int) : super(context, attrs, defAttr, defRes)
+    constructor(context: Context, attrs: AttributeSet, defAttr: Int, defRes: Int) : super(
+        context,
+        attrs,
+        defAttr,
+        defRes
+    )
 
     /*
      * Helpers
@@ -77,10 +98,6 @@ open class FieldGeneric : Field {
         drawable = tempDrawable
     }
 
-    override fun onFinishInflate() {
-        super.onFinishInflate()
-    }
-
     /*
      * Validation
      */
@@ -89,7 +106,7 @@ open class FieldGeneric : Field {
      * For a generic field a validator is a function that takes as input a string a returns a boolean
      * whether the validation passed or not. Remember to set the error message when setting a validator.
      */
-    open protected var validator: ((_: String?) -> Boolean)? = null
+    protected open var validator: ((_: String?) -> Boolean)? = null
 
     /**
      * Validate the field by calling the set validator

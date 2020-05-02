@@ -1,24 +1,36 @@
+/*
+ * Materialfields
+ * Copyright (c) 2020 by gabrielepmattia, All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3.0 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library.
+ */
+
 package com.gabrielepmattia.materialfields.fields
 
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import com.gabrielepmattia.materialfields.R
-
-/**
- * @Project aj-android
- * @Author gabry3795
- * @Date 09/03/2018 22:01
- */
 
 open class FieldAction : LinearLayout {
 
@@ -100,7 +112,12 @@ open class FieldAction : LinearLayout {
         this.initAttrs(context, attrs)
     }
 
-    constructor(context: Context, attrs: AttributeSet, defAttr: Int, defRes: Int) : super(context, attrs, defAttr, defRes) {
+    constructor(context: Context, attrs: AttributeSet, defAttr: Int, defRes: Int) : super(
+        context,
+        attrs,
+        defAttr,
+        defRes
+    ) {
         this.initView(context)
         this.initAttrs(context, attrs)
     }
@@ -123,7 +140,10 @@ open class FieldAction : LinearLayout {
         val tempTitle = t.getString(R.styleable.FieldAction_materialfieldsTitle)
         val tempDisabled = t.getBoolean(R.styleable.FieldAction_materialfieldsDisabled, false)
         val tempDrawable = t.getDrawable(R.styleable.FieldAction_materialfieldsDrawable)
-        val tempDrawableTint = t.getColor((R.styleable.FieldAction_materialfieldsDrawableTint), ContextCompat.getColor(context, R.color.grey700))
+        val tempDrawableTint = t.getColor(
+            (R.styleable.FieldAction_materialfieldsDrawableTint),
+            ContextCompat.getColor(context, R.color.grey700)
+        )
         t.recycle()
 
         // set attrs

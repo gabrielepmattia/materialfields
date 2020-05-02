@@ -1,3 +1,21 @@
+/*
+ * Materialfields
+ * Copyright (c) 2020 by gabrielepmattia, All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3.0 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library.
+ */
+
 package com.gabrielepmattia.materialfields.fields
 
 import android.app.AlertDialog
@@ -6,24 +24,19 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.res.TypedArray
-import androidx.constraintlayout.widget.ConstraintLayout
 import android.text.format.DateFormat
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnLongClickListener
 import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.gabrielepmattia.materialfields.R
 import com.gabrielepmattia.materialfields.fields.FieldDateRange.Type.DATE_RANGE
 import com.gabrielepmattia.materialfields.fields.FieldDateRange.Type.ONLY_START
 import java.util.*
 
 
-/**
- * @Project aj-android
- * @Author gabry3795
- * @Date 03/03/2018 21:16
- */
 class FieldDateRange : Field {
 
     /**
@@ -89,7 +102,12 @@ class FieldDateRange : Field {
 
     constructor(context: Context, attrs: AttributeSet, defAttr: Int) : super(context, attrs, defAttr)
 
-    constructor(context: Context, attrs: AttributeSet, defAttr: Int, defRes: Int) : super(context, attrs, defAttr, defRes)
+    constructor(context: Context, attrs: AttributeSet, defAttr: Int, defRes: Int) : super(
+        context,
+        attrs,
+        defAttr,
+        defRes
+    )
 
     /*
  * Helpers
@@ -113,8 +131,10 @@ class FieldDateRange : Field {
         val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.FieldDateRange) as TypedArray
         val tempStartUnixDate = t.getFloat(R.styleable.FieldDateRange_materialfieldsDefaultStartDateUnixTimestamp, -1f)
         val tempEndUnixDate = t.getFloat(R.styleable.FieldDateRange_materialfieldsDefaultEndDateUnixTimestamp, -1f)
-        val tempDateLimitRangeStartUnixDate = t.getFloat(R.styleable.FieldDateRange_materialfieldsDateLimitRangeStartUnixTimestamp, -1f)
-        val tempDateLimitRangeEndUnixDate = t.getFloat(R.styleable.FieldDateRange_materialfieldsDateLimitRangeEndUnixTimestamp, -1f)
+        val tempDateLimitRangeStartUnixDate =
+            t.getFloat(R.styleable.FieldDateRange_materialfieldsDateLimitRangeStartUnixTimestamp, -1f)
+        val tempDateLimitRangeEndUnixDate =
+            t.getFloat(R.styleable.FieldDateRange_materialfieldsDateLimitRangeEndUnixTimestamp, -1f)
         val tempChecked = t.getBoolean(R.styleable.FieldDateRange_materialfieldsChecked, false)
         t.recycle()
 
@@ -146,7 +166,8 @@ class FieldDateRange : Field {
             val dialogInputView = LayoutInflater.from(context).inflate(R.layout.dialog_daterange_type, null)
 
             // Set the correct checked value in the dialog
-            val radioGroup: RadioGroup = dialogInputView.findViewById<RadioGroup>(R.id.select_daterange_type_radio_group)
+            val radioGroup: RadioGroup =
+                dialogInputView.findViewById<RadioGroup>(R.id.select_daterange_type_radio_group)
             when (type) {
                 Type.DATE_RANGE -> radioGroup.check(R.id.select_daterange_type_daterange)
                 Type.ONLY_START -> radioGroup.check(R.id.select_daterange_type_only_start)
@@ -234,7 +255,11 @@ class FieldDateRange : Field {
      * Utils
      */
 
-    private fun showTimePicker(disabled: Boolean, defaultDate: Date?, timeSetListener: TimePickerDialog.OnTimeSetListener) {
+    private fun showTimePicker(
+        disabled: Boolean,
+        defaultDate: Date?,
+        timeSetListener: TimePickerDialog.OnTimeSetListener
+    ) {
         if (disabled) return
         // get end date and init the date picker
         val c = Calendar.getInstance()
@@ -243,11 +268,17 @@ class FieldDateRange : Field {
         val minute = c.get(Calendar.MINUTE)
 
         // Create a new instance of TimePickerDialog
-        TimePickerDialog(context, timeSetListener, hour, minute,
-                DateFormat.is24HourFormat(context)).show()
+        TimePickerDialog(
+            context, timeSetListener, hour, minute,
+            DateFormat.is24HourFormat(context)
+        ).show()
     }
 
-    private fun showDatePicker(disabled: Boolean, defaultDate: Date?, dateSetListener: DatePickerDialog.OnDateSetListener) {
+    private fun showDatePicker(
+        disabled: Boolean,
+        defaultDate: Date?,
+        dateSetListener: DatePickerDialog.OnDateSetListener
+    ) {
         if (disabled) return
         // get start date and init the date picker
         val c = Calendar.getInstance()
