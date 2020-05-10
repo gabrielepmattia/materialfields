@@ -40,6 +40,7 @@ open class FieldGeneric : Field {
                 mDrawableView!!.visibility = LinearLayout.GONE
             } else {
                 mDrawableView!!.setImageDrawable(d)
+                mDrawableView!!.visibility = LinearLayout.VISIBLE
             }
         }
         get() {

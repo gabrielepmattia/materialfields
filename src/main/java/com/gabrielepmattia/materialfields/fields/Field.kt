@@ -63,10 +63,12 @@ open class Field : LinearLayout {
     var value: String? = null
         set(s) {
             field = s
-            if (s.isNullOrBlank())
+            if (s.isNullOrBlank()) {
                 mSubtitleView!!.visibility = View.GONE
-            else
+            } else {
                 mSubtitleView!!.text = s
+                mSubtitleView!!.visibility = View.VISIBLE
+            }
         }
 
     /**
