@@ -22,6 +22,7 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Handler
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,7 @@ import com.makeramen.roundedimageview.RoundedImageView
 
 class FieldImageView : FieldGeneric {
 
+    private var mHandler = Handler()
     private var mImageView: RoundedImageView? = null
     private var mHasImageBitmap: Boolean = false
 
@@ -40,7 +42,10 @@ class FieldImageView : FieldGeneric {
                 mImageView?.setImageDrawable(null)
                 if (mHasImageBitmap) mImageView?.visibility = View.GONE
             } else {
-                mImageView?.setImageBitmap(BitmapResolver.getBitmap(context.contentResolver, value))
+                Thread {
+                    val bmp = BitmapResolver.getBitmap(context.contentResolver, value)
+                    mHandler.post { mImageView?.setImageBitmap(bmp) }
+                }.start()
                 if (mHasImageBitmap) mImageView?.visibility = View.VISIBLE
             }
             field = value
