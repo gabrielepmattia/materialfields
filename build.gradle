@@ -159,6 +159,6 @@ dokka {
     }
 }
 
-task wrapper(type: Wrapper) {
+task buildWrapper(type: Wrapper) {
     gradleVersion = '4.10.1' 
 }
