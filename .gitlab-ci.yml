@@ -1,4 +1,4 @@
-image: preventis/docker-android-alpine
+image: gabrielepmattia/docker-android-alpine
 
 stages:
   - build
@@ -25,7 +25,7 @@ cache:
 build:
   stage: build
   script:
-    - ./gradlew assembleRelease
+    - ./gradlew assemble
   artifacts:
     paths:
       - build/outputs/
