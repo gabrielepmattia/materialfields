@@ -30,8 +30,8 @@ import com.gabrielepmattia.materialfields.utils.Dialogs
 
 open class FieldInputText : FieldGeneric {
 
-    protected var changeListener: ((oldValue: String?, newValue: String?) -> Unit)? = null
-    protected var autoSetValue = false
+    var changeListener: ((oldValue: String?, newValue: String?) -> Unit)? = null
+    var autoSetValue = false
 
     /*
      * Constructors
