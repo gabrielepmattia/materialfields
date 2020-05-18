@@ -20,6 +20,8 @@ package com.gabrielepmattia.materialfields.fields
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.text.Spanned
+import android.text.SpannedString
 import android.transition.Fade
 import android.transition.TransitionManager
 import android.util.AttributeSet
@@ -42,15 +44,32 @@ open class Field : LinearLayout {
     protected var mAlertDrawableView: ImageView? = null
     protected var mBottomLineSeparator: View? = null
 
+    var titleFormatter: ((value: String) -> Spanned)? = null
+        set(s) {
+            field = s
+            if (title != null)
+                mSubtitleView!!.text = s?.invoke(title!!) ?: title!!
+        }
+
+    var valueFormatter: ((value: String) -> Spanned)? = null
+        set(s) {
+            field = s
+            if (value != null)
+                mSubtitleView!!.text = s?.invoke(value!!) ?: value!!
+        }
+
     /**
      * The title of the field
      */
     var title: String?
         set(s) {
-            if (s == null) {
+            if (s.isNullOrBlank()) {
                 mTitleView!!.text = Field::class.java.simpleName
             } else {
-                mTitleView!!.text = s
+                if (titleFormatter != null)
+                    mTitleView!!.text = titleFormatter?.invoke(s)
+                else
+                    mTitleView!!.text = s
             }
         }
         get() {
@@ -67,7 +86,10 @@ open class Field : LinearLayout {
                 if (placeholder.isNullOrBlank()) mSubtitleView!!.visibility = View.GONE
                 else mSubtitleView!!.text = placeholder
             } else {
-                mSubtitleView!!.text = s
+                if (valueFormatter != null)
+                    mSubtitleView!!.text = valueFormatter?.invoke(s)
+                else
+                    mSubtitleView!!.text = s
                 mSubtitleView!!.visibility = View.VISIBLE
             }
         }
@@ -75,7 +97,13 @@ open class Field : LinearLayout {
     /**
      * The placeholder to display if value is null
      */
-    var placeholder: String? = null
+    var placeholder: Spanned? = null
+        set(s) {
+            field = s
+            if (value.isNullOrBlank()) {
+                mSubtitleView!!.text = field
+            }
+        }
 
     /**
      * Set decoration and interaction disabled of the field
@@ -161,7 +189,7 @@ open class Field : LinearLayout {
 
         // set attrs
         if (tempTitle != null) title = tempTitle
-        placeholder = tempPlaceholder
+        if (tempPlaceholder != null) placeholder = SpannedString(tempPlaceholder)
         value = tempSubtitle
         disabled = tempDisabled
     }
