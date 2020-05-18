@@ -47,14 +47,14 @@ open class Field : LinearLayout {
     var titleFormatter: ((value: String) -> Spanned)? = null
         set(s) {
             field = s
-            if (title != null)
+            if (!title.isNullOrBlank())
                 mSubtitleView!!.text = s?.invoke(title!!) ?: title!!
         }
 
     var valueFormatter: ((value: String) -> Spanned)? = null
         set(s) {
             field = s
-            if (value != null)
+            if (!value.isNullOrBlank())
                 mSubtitleView!!.text = s?.invoke(value!!) ?: value!!
         }
 
