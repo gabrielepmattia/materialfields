@@ -64,12 +64,18 @@ open class Field : LinearLayout {
         set(s) {
             field = s
             if (s.isNullOrBlank()) {
-                mSubtitleView!!.visibility = View.GONE
+                if (placeholder.isNullOrBlank()) mSubtitleView!!.visibility = View.GONE
+                else mSubtitleView!!.text = placeholder
             } else {
                 mSubtitleView!!.text = s
                 mSubtitleView!!.visibility = View.VISIBLE
             }
         }
+
+    /**
+     * The placeholder to display if value is null
+     */
+    var placeholder: String? = null
 
     /**
      * Set decoration and interaction disabled of the field
@@ -84,27 +90,16 @@ open class Field : LinearLayout {
                 mContainer?.isFocusable = false
                 mTitleView?.setTextColor(ContextCompat.getColor(context, R.color.grey600))
                 mSubtitleView?.setTextColor(ContextCompat.getColor(context, R.color.grey500))
-                mBottomLineSeparator?.setBackgroundColor(
-                    ContextCompat.getColor(
-                        context,
-                        R.color.grey400
-                    )
-                )
+                mBottomLineSeparator?.setBackgroundColor(ContextCompat.getColor(context, R.color.grey400))
             } else {
                 mContainer?.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
                 mContainer?.isClickable = true
                 mContainer?.isFocusable = true
                 mTitleView?.setTextColor(ContextCompat.getColor(context, R.color.black))
                 mSubtitleView?.setTextColor(ContextCompat.getColor(context, R.color.grey600))
-                mBottomLineSeparator?.setBackgroundColor(
-                    ContextCompat.getColor(
-                        context,
-                        R.color.grey300
-                    )
-                )
+                mBottomLineSeparator?.setBackgroundColor(ContextCompat.getColor(context, R.color.grey300))
             }
         }
-
 
     /*
      * Constructors
@@ -161,17 +156,19 @@ open class Field : LinearLayout {
         val tempTitle = t.getString(R.styleable.Field_title)
         val tempSubtitle = t.getString(R.styleable.Field_value)
         val tempDisabled = t.getBoolean(R.styleable.Field_disabled, false)
+        val tempPlaceholder = t.getString(R.styleable.Field_placeholder)
         t.recycle()
 
         // set attrs
         if (tempTitle != null) title = tempTitle
+        placeholder = tempPlaceholder
         value = tempSubtitle
         disabled = tempDisabled
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
         // Override the click listener because field can be disabled
-        mContainer!!.setOnClickListener({ v -> if (!disabled) l?.onClick(v) })
+        mContainer!!.setOnClickListener { v -> if (!disabled) l?.onClick(v) }
     }
 
     /*

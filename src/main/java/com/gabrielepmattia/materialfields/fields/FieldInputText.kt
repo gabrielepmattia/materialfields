@@ -28,9 +28,10 @@ import android.widget.EditText
 import com.gabrielepmattia.materialfields.R
 import com.gabrielepmattia.materialfields.utils.Dialogs
 
-class FieldInputText : FieldGeneric {
+open class FieldInputText : FieldGeneric {
 
-    var changeListener: ((oldValue: String?, newValue: String?) -> Unit)? = null
+    protected var changeListener: ((oldValue: String?, newValue: String?) -> Unit)? = null
+    protected var autoSetValue = false
 
     /*
      * Constructors
@@ -47,14 +48,16 @@ class FieldInputText : FieldGeneric {
 
     override fun initAttrs(attrs: AttributeSet) {
         val t: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.FieldInputText) as TypedArray
-        val req = t.getBoolean(R.styleable.FieldInputText_required, false)
+        val tempRequired = t.getBoolean(R.styleable.FieldInputText_required, false)
+        val tempAutoSetValue = t.getBoolean(R.styleable.FieldInputText_autoSetValue, false)
         t.recycle()
 
         // init all base attrs
         super.initAttrs(attrs)
 
         // set required if passed as parameter
-        if (req) setRequired(true)
+        if (tempRequired) setRequired(true)
+        autoSetValue = tempAutoSetValue
     }
 
     override fun onFinishInflate() {
@@ -66,11 +69,13 @@ class FieldInputText : FieldGeneric {
 
     private fun initOnClickListener() {
         setOnClickListener {
-            Dialogs.showDialogWithInputAndPNButtons(context,
-                    LayoutInflater.from(context),
-                    title,
-                    context.getString(R.string.dialog_action_ok),
-                    context.getString(R.string.dialog_action_cancel), PositiveAction(), NegativeAction(), value)
+            Dialogs.showDialogWithInputAndPNButtons(
+                context,
+                LayoutInflater.from(context),
+                title,
+                context.getString(R.string.dialog_action_ok),
+                context.getString(R.string.dialog_action_cancel), PositiveAction(), NegativeAction(), value
+            )
         }
     }
 
@@ -84,7 +89,7 @@ class FieldInputText : FieldGeneric {
             val newText = dialogView.findViewById<EditText>(R.id.dialog_input_edittext).text
             if (!newText.equals(value)) {
                 if (changeListener != null) changeListener!!(value, newText.toString())
-                value = newText.toString()
+                if (autoSetValue) value = newText.toString()
 
                 // Validate new value
                 if (validator != null) this@FieldInputText.validate()

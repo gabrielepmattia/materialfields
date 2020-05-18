@@ -23,6 +23,7 @@
         <attr name="title" format="string" />
         <attr name="value" format="string" />
         <attr name="disabled" format="boolean" />
+        <attr name="placeholder" format="string" />
     </declare-styleable>
 
     <declare-styleable name="FieldGeneric">
@@ -31,6 +32,7 @@
 
     <declare-styleable name="FieldInputText">
         <attr name="required" format="boolean" />
+        <attr name="autoSetValue" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="FieldCheckBox">
