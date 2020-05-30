@@ -196,7 +196,16 @@ open class Field : LinearLayout {
 
     override fun setOnClickListener(l: OnClickListener?) {
         // Override the click listener because field can be disabled
-        mContainer!!.setOnClickListener { v -> if (!disabled) l?.onClick(v) }
+        mContainer?.setOnClickListener { v -> if (!disabled) l?.onClick(v) }
+    }
+
+    override fun setOnLongClickListener(l: OnLongClickListener?) {
+        mContainer?.isLongClickable = true
+        mContainer?.setOnLongClickListener { v ->
+            if (!disabled) {
+                l?.onLongClick(v); true
+            } else false
+        }
     }
 
     /*
