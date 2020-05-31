@@ -95,7 +95,6 @@ open class FieldInputText : FieldGeneric {
                 if (validator != null) this@FieldInputText.validate()
             }
         }
-
     }
 
     inner class NegativeAction : DialogInterface.OnClickListener {
