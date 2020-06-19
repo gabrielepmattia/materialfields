@@ -24,6 +24,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.CheckBox
+import android.widget.CompoundButton
 import com.gabrielepmattia.materialfields.R
 
 
@@ -74,6 +75,7 @@ class FieldCheckBox : Field {
     /*
      * Helpers
      */
+
     override fun initView(context: Context) {
         val i: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         i.inflate(R.layout.component_field_checkbox, this, true)
@@ -100,5 +102,13 @@ class FieldCheckBox : Field {
         mContainer!!.setOnClickListener { _: View ->
             if (!disabled) mCheckBox!!.toggle()
         }
+    }
+
+    /*
+     * Listeners
+     */
+
+    fun setOnCheckedChangeListener(listener: ((CompoundButton, Boolean) -> Unit)) {
+        mCheckBox?.setOnCheckedChangeListener(listener)
     }
 }
